@@ -32,8 +32,12 @@ public abstract class Entity {
     }
 
 
-    public void render(ShapeRenderer renderer, SpriteBatch batch) {
+    public void renderTextures(SpriteBatch batch) {
         batch.draw(texture, getX(), getY());
+    }
+
+    public void renderShapes(ShapeRenderer renderer) {
+
     }
 
     public void update(Level parent) {

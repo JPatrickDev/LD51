@@ -20,7 +20,7 @@ public abstract class Tile {
     }
     public abstract String getTextureName();
 
-    public void render(ShapeRenderer renderer, SpriteBatch batch){
+    public void render(SpriteBatch batch){
         if(!textures.containsKey(getTextureName())){
             textures.put(getTextureName(), new Texture(getTextureName()));
         }else{
