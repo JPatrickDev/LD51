@@ -155,7 +155,7 @@ public class Level {
             }
             if (r2.intersects(r)) {
                 if (e instanceof Mob && target instanceof Projectile && ((Projectile) target).getOwner() != e) {
-                    if(!(((Projectile) target).getOwner() instanceof GruntMob) && !(e instanceof GruntMob)) {
+                    if (!(((Projectile) target).getOwner() instanceof GruntMob && e instanceof GruntMob)) {
                         ((Mob) e).takeDamage(((Projectile) target).toFire.damage());
                     }
                 } else {
