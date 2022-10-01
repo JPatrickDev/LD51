@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import me.jack.ld51.Entity.Entity;
 import me.jack.ld51.Entity.Mobs.Player;
+import me.jack.ld51.Entity.Projectiles.Bullet;
+import me.jack.ld51.Entity.Projectiles.Projectile;
 import me.jack.ld51.tile.FloorTile;
 import me.jack.ld51.tile.Tile;
 import me.jack.ld51.tile.WallTile;
@@ -52,6 +54,15 @@ public class Level {
         for(Entity e : entities){
             e.update(this);
         }
+
+        for(Entity e : toSpawn){
+            entities.add(e);
+        }
+        for(Entity e : toRemove){
+            entities.remove(e);
+        }
+        toSpawn.clear();
+        toRemove.clear();
     }
 
     public boolean canMove(Entity target, float dx,float dy){
@@ -83,7 +94,22 @@ public class Level {
         Vector2 v = new Vector2(target.getdX(),target.getdY());
         float dot = wall.dot(v);
         Vector2 newVelocity = new Vector2(v.x - 2 * dot * wall.x, v.y - 2 * dot * wall.y);
-        target.setdX(newVelocity.x / 2.5f);
-        target.setdY(newVelocity.y / 2.5f);
+
+        float factor = 2.5f;
+        if(target instanceof Projectile){
+            factor = 1;
+        }
+        target.setdX(newVelocity.x / factor);
+        target.setdY(newVelocity.y / factor);
+        target.bounces++;
+    }
+
+    public ArrayList<Entity> toSpawn = new ArrayList<>();
+    public void spawnEntity(Entity entity) {
+        toSpawn.add(entity);
+    }
+    public ArrayList<Entity> toRemove = new ArrayList<>();
+    public void removeEntity(Entity entity) {
+        toRemove.add(entity);
     }
 }

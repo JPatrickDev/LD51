@@ -13,9 +13,9 @@ public abstract class Entity {
 
     private Texture texture;
 
-    private int x, y;
-    private int w;
-    private int h;
+    protected int x, y;
+    protected int w;
+    protected int h;
 
 
     //How many times the Entity has bounced off a wall

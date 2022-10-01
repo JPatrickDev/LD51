@@ -1,6 +1,7 @@
 package me.jack.ld51;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -20,6 +21,7 @@ public class LD51Game extends ApplicationAdapter {
 	int i =0;
 	@Override
 	public void render () {
+		System.out.println( Gdx.graphics.getFramesPerSecond());
 		if(i % 2 == 0) {
 			level.update();
 			i = 0;

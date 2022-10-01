@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 import java.util.Random;
 
+import me.jack.ld51.Entity.Projectiles.Bullet;
 import me.jack.ld51.level.Level;
 
 public class Player extends Mob {
@@ -28,5 +29,10 @@ public class Player extends Mob {
         } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             dY -= 2;
         }
+
+        if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+            parent.spawnEntity(new Bullet(getX(),getY()));
+        }
     }
+
 }
