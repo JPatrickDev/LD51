@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import me.jack.ld51.Entity.Projectiles.Bullet;
 import me.jack.ld51.Entity.Projectiles.Knife;
 import me.jack.ld51.level.Level;
 
@@ -13,10 +14,10 @@ public class GruntMob extends Mob {
 
 
     int weaponRange = 32;
-
+    static Texture texture = new Texture("grunt.png");
     public GruntMob(int x, int y) {
-        super(new Texture("grunt.png"), x, y);
-        currentWeapon = new Knife(this);
+        super(texture, x, y);
+        currentWeapon = new Bullet(this, 2000);
         //     health = 10;
     }
 

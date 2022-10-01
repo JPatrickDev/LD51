@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import javax.print.DocFlavor;
+
 import me.jack.ld51.Screen.GameOverScreen;
 import me.jack.ld51.Screen.InGameScreen;
 import me.jack.ld51.Screen.Screen;
@@ -28,6 +30,7 @@ public class LD51Game extends ApplicationAdapter {
     public void create() {
         batch = new SpriteBatch();
         renderer = new ShapeRenderer();
+        renderer.setAutoShapeType(true);
         currentScreen = new InGameScreen(batch,renderer);
         instance = this;
     }

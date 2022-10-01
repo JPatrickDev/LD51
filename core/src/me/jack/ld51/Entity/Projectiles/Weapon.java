@@ -10,6 +10,7 @@ public abstract class Weapon {
 
     protected Mob owner;
     protected long lastUse;
+    public Texture icon;
     public Weapon(Mob owner){
         this.owner = owner;
     }

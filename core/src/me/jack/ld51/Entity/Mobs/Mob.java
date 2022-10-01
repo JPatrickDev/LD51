@@ -14,10 +14,9 @@ public class Mob extends Entity {
 
     long lastWeaponUse = 0;
     public float health = 50f,maxHealth = health;
-    protected Weapon currentWeapon = null;
+    public Weapon currentWeapon = null;
     public Mob(Texture t, int x, int y) {
         super(t, x, y);
-        currentWeapon = new Bullet(this);
     }
 
     public void setStartHealth(float start){

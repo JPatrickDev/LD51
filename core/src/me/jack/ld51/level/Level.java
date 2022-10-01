@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import me.jack.ld51.Entity.Entity;
@@ -18,6 +19,7 @@ import me.jack.ld51.Entity.Projectiles.Projectile;
 import me.jack.ld51.LD51Game;
 import me.jack.ld51.Screen.GameOverScreen;
 import me.jack.ld51.tile.FloorTile;
+import me.jack.ld51.tile.StairTile;
 import me.jack.ld51.tile.Tile;
 import me.jack.ld51.tile.WallTile;
 
@@ -32,6 +34,11 @@ public class Level {
 
     Player player;
 
+    public long roundTimer = System.currentTimeMillis();
+    public int currentRound = 1;
+
+    List<StairTile> stairs = new ArrayList<>();
+
     public Level() {
         w = 20;
         h = 15;
@@ -43,15 +50,23 @@ public class Level {
                 } else {
                     map[x][y] = new FloorTile(x, y);
                 }
+
+                if ((x - 2 == 0 && y - 2 == 0) || (x + 3 == w && y + 3 == h) || (x - 2 == 0 && y + 3 == h) || (x + 3 == w && y - 2 == 0)) {
+                    map[x][y] = new StairTile(x, y);
+                    stairs.add((StairTile) map[x][y]);
+                }
             }
         }
         player = new Player(300, 300);
         entities.add(player);
+
+        newRoundSpawnMobs();
     }
 
     public void renderTextures(SpriteBatch batch) {
         for (int x = 0; x != w; x++) {
             for (int y = 0; y != h; y++) {
+                map[x][y].update(this);
                 map[x][y].render(batch);
             }
         }
@@ -60,16 +75,35 @@ public class Level {
         }
     }
 
-    public void renderShapes(ShapeRenderer renderer){
+    public void renderShapes(ShapeRenderer renderer) {
         for (Entity e : entities) {
             e.renderShapes(renderer);
         }
     }
 
-    public void update() {
-        if (new Random().nextInt(10) == 0) {
-            spawnEntity(new GruntMob(new Random().nextInt(400) + 32, new Random().nextInt(400) + 32));
+
+    public void newRoundStart() {
+        newRoundSpawnMobs();
+    }
+
+
+    public void newRoundSpawnMobs() {
+        System.out.println("Spawning Mob round");
+        for (StairTile t : stairs) {
+            for (int i = 0; i <= new Random().nextInt(5) + 1; i++) {
+                t.toSpawn.add(new GruntMob(t.tX * Tile.TILE_SIZE, t.tY * Tile.TILE_SIZE));
+            }
         }
+    }
+
+    public void update() {
+        System.out.println(System.currentTimeMillis() - roundTimer);
+        if (System.currentTimeMillis() - roundTimer > 10000) {
+            roundTimer = System.currentTimeMillis();
+            newRoundStart();
+            currentRound++;
+        }
+
         for (Entity e : entities) {
             e.update(this);
         }
@@ -108,8 +142,8 @@ public class Level {
         if (newY < Tile.TILE_SIZE || newY > 480 - Tile.TILE_SIZE - target.getH()) {
             collideWithWall(target, new Vector2(0, 1));
         }
-        if(target instanceof Player){
-         //   target.move(); return;
+        if (target instanceof Player) {
+            //   target.move(); return;
         }
         Rectangle r = new Rectangle((int) newX, (int) newY, target.getW(), target.getH());
         for (Entity e : entities) {
@@ -120,12 +154,15 @@ public class Level {
                 r2 = new Rectangle((int) e.getX() + e.getW() / 2, (int) e.getY() + e.getH() / 2, e.getW() / 2, e.getH() / 2);
             }
             if (r2.intersects(r)) {
-                if(e instanceof Mob && target instanceof Projectile &&  ((Projectile)target).getOwner() != e ){
-                    ((Mob) e).takeDamage(((Projectile) target).toFire.damage());
-                }else{
-                    if(!(target instanceof Projectile) ||((Projectile)target).getOwner() != e){
-                    target.setdX(0);
-                    target.setdY(0);}
+                if (e instanceof Mob && target instanceof Projectile && ((Projectile) target).getOwner() != e) {
+                    if(!(((Projectile) target).getOwner() instanceof GruntMob) && !(e instanceof GruntMob)) {
+                        ((Mob) e).takeDamage(((Projectile) target).toFire.damage());
+                    }
+                } else {
+                    if (!(target instanceof Projectile) || ((Projectile) target).getOwner() != e) {
+                        target.setdX(0);
+                        target.setdY(0);
+                    }
                 }
             }
         }
@@ -155,7 +192,7 @@ public class Level {
     public ArrayList<Entity> toRemove = new ArrayList<>();
 
     public void removeEntity(Entity entity) {
-        if(entity instanceof Player){
+        if (entity instanceof Player) {
             LD51Game.gameover();
             return;
         }
@@ -169,5 +206,20 @@ public class Level {
 
     public static int dist(Entity o, Entity t) {
         return (int) Point2D.distance(o.getX(), o.getY(), t.getX(), t.getY());
+    }
+
+    public Mob findMobInRange(Player player, float range) {
+        List<Mob> choices = new ArrayList<Mob>();
+        for (Entity e : entities) {
+            if (!(e instanceof Mob))
+                continue;
+            if (e == player)
+                continue;
+            if (dist(player, e) <= range)
+                choices.add((Mob) e);
+        }
+        if (!choices.isEmpty())
+            return choices.get(new Random().nextInt(choices.size()));
+        return null;
     }
 }

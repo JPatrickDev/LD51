@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.HashMap;
 
+import me.jack.ld51.level.Level;
+
 public abstract class Tile {
 
     private boolean solid;
@@ -29,4 +31,7 @@ public abstract class Tile {
         }
 
     }
+
+
+    public void update(Level parent){}
 }

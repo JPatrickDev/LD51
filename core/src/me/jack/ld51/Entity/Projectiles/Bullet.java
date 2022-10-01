@@ -11,15 +11,17 @@ import me.jack.ld51.level.Level;
 
 public class Bullet extends RangedWeapon{
     //TODO Map for common textures for all entities to use
-    public Bullet(Mob owner) {
+    long firerate = 100;
+    public Bullet(Mob owner, long firerate) {
         super(new Texture("projectiles/bullet.png"),owner);
-
+        icon  = new Texture("gun.png");
+        this.firerate = firerate;
     }
 
 
     @Override
     public long fireRate(){
-        return 100;
+        return firerate;
     }
 
     @Override
@@ -34,7 +36,7 @@ public class Bullet extends RangedWeapon{
 
     @Override
     public float range() {
-        return 30;
+        return 200;
     }
 
 }
