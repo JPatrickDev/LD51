@@ -17,7 +17,7 @@ public class GruntMob extends Mob {
     static Texture texture = new Texture("grunt.png");
     public GruntMob(int x, int y) {
         super(texture, x, y);
-        currentWeapon = new Bullet(this, 2000);
+        currentWeapon = new Knife(this);
         //     health = 10;
     }
 

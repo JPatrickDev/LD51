@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.Random;
 
+import me.jack.ld51.Entity.Particles.Particle;
 import me.jack.ld51.level.Level;
 
 public abstract class Entity {
@@ -24,13 +25,16 @@ public abstract class Entity {
     protected float dX, dY;
 
     public Entity(Texture t, int x, int y) {
+        this(x, y, t.getWidth(), t.getHeight());
         this.texture = t;
-        this.x = x;
-        this.y = y;
-        w = texture.getWidth();
-        h = texture.getHeight();
     }
 
+    public Entity(int x, int y, int w, int h) {
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+    }
 
     public void renderTextures(SpriteBatch batch) {
         batch.draw(texture, getX(), getY());
@@ -43,20 +47,21 @@ public abstract class Entity {
     public void update(Level parent) {
         parent.doMove(this);
     }
+
     //Slightly tweak the current velocity, so bouncing between two walls isn't deterministic
-    public void randVel(){
+    public void randVel() {
         float xOff = new Random().nextFloat();
         float yOff = new Random().nextFloat();
-        if(dX > 0){
+        if (dX > 0) {
             dX += xOff;
-        }else{
-            dX -=xOff;
+        } else {
+            dX -= xOff;
         }
 
-        if(dY > 0){
+        if (dY > 0) {
             dY += yOff;
-        }else{
-            dY -=yOff;
+        } else {
+            dY -= yOff;
         }
     }
 
@@ -84,11 +89,21 @@ public abstract class Entity {
     }
 
     //Should only be called from Level, doesn't perform any checks
-    public void move(){
+    public void move() {
         x += dX;
         y += dY;
+        if(!(this instanceof Particle)){
         dX /= 1.1;
         dY /= 1.1;
+        }else{
+            dX /= 1.5;
+            dY /= 1.5;
+        }
+
+        if(this instanceof Particle && (Math.abs(dX) <= 0.5 || Math.abs(dY) <= 0.5)){
+            dX = 0;
+            dY = 0;
+        }
     }
 
 

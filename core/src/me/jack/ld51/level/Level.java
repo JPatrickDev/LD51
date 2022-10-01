@@ -14,6 +14,9 @@ import me.jack.ld51.Entity.Entity;
 import me.jack.ld51.Entity.Mobs.GruntMob;
 import me.jack.ld51.Entity.Mobs.Mob;
 import me.jack.ld51.Entity.Mobs.Player;
+import me.jack.ld51.Entity.Particles.Decorative.BloodParticle;
+import me.jack.ld51.Entity.Particles.Decorative.DecorativeParticle;
+import me.jack.ld51.Entity.Particles.Particle;
 import me.jack.ld51.Entity.Projectiles.Bullet;
 import me.jack.ld51.Entity.Projectiles.Projectile;
 import me.jack.ld51.LD51Game;
@@ -108,11 +111,18 @@ public class Level {
             e.update(this);
         }
 
-        for (Entity e : toSpawn) {
-            entities.add(e);
-        }
+
         for (Entity e : toRemove) {
             entities.remove(e);
+            if(e instanceof Mob){
+                for(int i = 0; i != 50;i++){
+                    System.out.println("Spawning particle");
+                    toSpawn.add(new BloodParticle(e.getX(),e.getY(),2,2));
+                }
+            }
+        }
+        for (Entity e : toSpawn) {
+            entities.add(e);
         }
         toSpawn.clear();
         toRemove.clear();
@@ -147,7 +157,7 @@ public class Level {
         }
         Rectangle r = new Rectangle((int) newX, (int) newY, target.getW(), target.getH());
         for (Entity e : entities) {
-            if (e == target || e instanceof Projectile)
+            if (e == target || e instanceof Projectile || e instanceof DecorativeParticle)
                 continue;
             Rectangle r2 = new Rectangle((int) e.getX(), (int) e.getY(), e.getW(), e.getH());
             if (e instanceof GruntMob && target instanceof GruntMob) {
