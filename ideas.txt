@@ -1,0 +1,12 @@
+Every 10 seconds
+
+
+Every 10 seconds?
+    - A new wave spawns
+    - The Mobs already in arena get stronger
+    - Your weapons get better
+    - The map gets bigger
+    - The map changes
+        - Walls appear/disappear
+        - Textures change?
+            - Mobs morph between a few different forms?

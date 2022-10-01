@@ -1,0 +1,7 @@
+Entity collision with walls/
+
+Player Movement
+
+Player can shoot a basic projectile with mouse click
+    - Projectiles bounce of walls
+
