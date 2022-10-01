@@ -7,41 +7,53 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import me.jack.ld51.Screen.GameOverScreen;
+import me.jack.ld51.Screen.InGameScreen;
+import me.jack.ld51.Screen.Screen;
 import me.jack.ld51.level.Level;
+import me.jack.ld51.ui.HUD;
 
 public class LD51Game extends ApplicationAdapter {
+
+    Screen currentScreen;
+    private static LD51Game instance;
     SpriteBatch batch;
     ShapeRenderer renderer;
-    Level level;
+
+    public static void gameover() {
+       changeScreen(new GameOverScreen(getInstance().batch, getInstance().renderer));
+    }
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         renderer = new ShapeRenderer();
-        level = new Level();
+        currentScreen = new InGameScreen(batch,renderer);
+        instance = this;
     }
 
     int i = 0;
 
     @Override
     public void render() {
-        System.out.println(Gdx.graphics.getFramesPerSecond());
-        if (i % 2 == 0) {
-            level.update();
-            i = 0;
+        ScreenUtils.clear(1, 1, 1, 1);
+        currentScreen.render();
+        if(newScreen != null){
+           currentScreen.dispose();
+           currentScreen = newScreen;
         }
-        i++;
-        ScreenUtils.clear(1, 0, 0, 1);
-        batch.begin();
-        level.renderTextures(batch);
-        batch.end();
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-        level.renderShapes(renderer);
-        renderer.end();
     }
 
     @Override
     public void dispose() {
-        batch.dispose();
+        currentScreen.dispose();
+    }
+
+    public static LD51Game getInstance(){
+        return instance;
+    }
+    Screen newScreen = null;
+    public static void changeScreen(Screen newScreen){
+        getInstance().newScreen = newScreen;
     }
 }

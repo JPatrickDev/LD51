@@ -35,6 +35,10 @@ public class Player extends Mob {
             parent.spawnEntity(new Projectile(this,this.currentWeapon,getX(),getY()));
             lastWeaponUse = System.currentTimeMillis();
         }
+
+        if(new Random().nextInt(5) == 0){
+            takeDamage(10f);
+        }
     }
 
 }

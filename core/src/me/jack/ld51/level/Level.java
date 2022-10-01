@@ -15,6 +15,8 @@ import me.jack.ld51.Entity.Mobs.Mob;
 import me.jack.ld51.Entity.Mobs.Player;
 import me.jack.ld51.Entity.Projectiles.Bullet;
 import me.jack.ld51.Entity.Projectiles.Projectile;
+import me.jack.ld51.LD51Game;
+import me.jack.ld51.Screen.GameOverScreen;
 import me.jack.ld51.tile.FloorTile;
 import me.jack.ld51.tile.Tile;
 import me.jack.ld51.tile.WallTile;
@@ -153,6 +155,10 @@ public class Level {
     public ArrayList<Entity> toRemove = new ArrayList<>();
 
     public void removeEntity(Entity entity) {
+        if(entity instanceof Player){
+            LD51Game.gameover();
+            return;
+        }
         toRemove.add(entity);
     }
 
