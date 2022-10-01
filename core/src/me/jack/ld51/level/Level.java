@@ -16,12 +16,16 @@ import me.jack.ld51.Entity.Mobs.Mob;
 import me.jack.ld51.Entity.Mobs.Player;
 import me.jack.ld51.Entity.Particles.Decorative.BloodParticle;
 import me.jack.ld51.Entity.Particles.Decorative.DecorativeParticle;
+import me.jack.ld51.Entity.Particles.Drops.DropParticle;
+import me.jack.ld51.Entity.Particles.Drops.HealthDrop;
 import me.jack.ld51.Entity.Particles.Particle;
 import me.jack.ld51.Entity.Projectiles.Bullet;
 import me.jack.ld51.Entity.Projectiles.Projectile;
 import me.jack.ld51.LD51Game;
 import me.jack.ld51.Screen.GameOverScreen;
 import me.jack.ld51.tile.FloorTile;
+import me.jack.ld51.tile.LeftStairTile;
+import me.jack.ld51.tile.RightStairTile;
 import me.jack.ld51.tile.StairTile;
 import me.jack.ld51.tile.Tile;
 import me.jack.ld51.tile.WallTile;
@@ -54,8 +58,12 @@ public class Level {
                     map[x][y] = new FloorTile(x, y);
                 }
 
-                if ((x - 2 == 0 && y - 2 == 0) || (x + 3 == w && y + 3 == h) || (x - 2 == 0 && y + 3 == h) || (x + 3 == w && y - 2 == 0)) {
-                    map[x][y] = new StairTile(x, y);
+                if ((x - 2 == 0 && y - 2 == 0) || (x + 3 == w && y + 3 == h)) {
+                    map[x][y] = new RightStairTile(x, y);
+                    stairs.add((StairTile) map[x][y]);
+                }
+                if ((x - 2 == 0 && y + 3 == h) || (x + 3 == w && y - 2 == 0)) {
+                    map[x][y] = new LeftStairTile(x, y);
                     stairs.add((StairTile) map[x][y]);
                 }
             }
@@ -114,10 +122,15 @@ public class Level {
 
         for (Entity e : toRemove) {
             entities.remove(e);
-            if(e instanceof Mob){
-                for(int i = 0; i != 50;i++){
-                    System.out.println("Spawning particle");
-                    toSpawn.add(new BloodParticle(e.getX(),e.getY(),2,2));
+            if (e instanceof Mob) {
+                for (int i = 0; i != 50; i++) {
+                    if (new Random().nextBoolean())
+                        toSpawn.add(new BloodParticle(e.getX(), e.getY(), 4, 4));
+                    else
+                        toSpawn.add(new BloodParticle(e.getX(), e.getY(), 2, 2));
+                }
+                if(new Random().nextInt(5) == 0){
+                    toSpawn.add(new HealthDrop(e.getX(),e.getY()));
                 }
             }
         }
@@ -128,18 +141,9 @@ public class Level {
         toRemove.clear();
     }
 
-    public boolean canMove(Entity target, float dx, float dy) {
-        float newX = target.getX() + dx;
-        float newY = target.getY() + dy;
-        if (newX < 0 || newY < 0 || newX > 640 || newY > 480) {
-            return false;
-        }
-        return true;
-    }
 
     //Attempt to apply the Entity's current velocity to its position
     //If we collide with the outer walls, bounce off them
-    //If collide with another Entity,
     public void doMove(Entity target) {
 
 
@@ -169,10 +173,14 @@ public class Level {
                         ((Mob) e).takeDamage(((Projectile) target).toFire.damage());
                     }
                 } else {
-                    if (!(target instanceof Projectile) || ((Projectile) target).getOwner() != e) {
+                    if ((!(target instanceof Projectile) || ((Projectile) target).getOwner() != e) && !(e instanceof DropParticle)) {
                         target.setdX(0);
                         target.setdY(0);
                     }
+                }
+                if(target instanceof Player && e instanceof DropParticle){
+                    ((DropParticle) e).apply(this, (Mob) target);
+                    removeEntity(e);
                 }
             }
         }

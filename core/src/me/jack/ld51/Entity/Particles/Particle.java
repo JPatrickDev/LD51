@@ -14,6 +14,9 @@ public class Particle extends Entity {
     private Color start, end;
 
     long starttime = 0;
+
+    protected long lifespan = 1000;
+
     public Particle(int x, int y, int w, int h, Color c1, Color c2) {
         super(x, y, w, h);
         this.start = c1;
@@ -24,7 +27,7 @@ public class Particle extends Entity {
     @Override
     public void update(Level parent) {
         super.update(parent);
-        if(System.currentTimeMillis() - starttime > 1000 && new Random().nextInt(5) == 0){
+        if(System.currentTimeMillis() - starttime > lifespan && new Random().nextInt(15) == 0){
             parent.removeEntity(this);
         }
     }

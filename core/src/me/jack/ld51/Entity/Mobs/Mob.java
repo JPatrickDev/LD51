@@ -39,4 +39,10 @@ public class Mob extends Entity {
             health = 0;
         }
     }
+
+    public void addHealth(float v) {
+        health += v;
+        if(health > maxHealth)
+            health = maxHealth;
+    }
 }
