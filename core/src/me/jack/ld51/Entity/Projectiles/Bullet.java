@@ -6,11 +6,13 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.Random;
 
 import me.jack.ld51.Entity.Entity;
+import me.jack.ld51.Entity.Mobs.Mob;
+import me.jack.ld51.level.Level;
 
-public class Bullet extends Weapon{
+public class Bullet extends RangedWeapon{
     //TODO Map for common textures for all entities to use
-    public Bullet() {
-        super(new Texture("projectiles/bullet.png"));
+    public Bullet(Mob owner) {
+        super(new Texture("projectiles/bullet.png"),owner);
 
     }
 
@@ -29,4 +31,10 @@ public class Bullet extends Weapon{
     public float damage() {
         return 20;
     }
+
+    @Override
+    public float range() {
+        return 30;
+    }
+
 }

@@ -8,6 +8,7 @@ import java.util.Random;
 
 import me.jack.ld51.Entity.Projectiles.Bullet;
 import me.jack.ld51.Entity.Projectiles.Projectile;
+import me.jack.ld51.Entity.Projectiles.RangedWeapon;
 import me.jack.ld51.level.Level;
 
 public class Player extends Mob {
@@ -31,13 +32,18 @@ public class Player extends Mob {
             dY -= 2;
         }
 
-        if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && System.currentTimeMillis() - lastWeaponUse > currentWeapon.fireRate() ){
-            parent.spawnEntity(new Projectile(this,this.currentWeapon,getX(),getY()));
-            lastWeaponUse = System.currentTimeMillis();
+        if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+            if(this.currentWeapon instanceof RangedWeapon){
+                ((RangedWeapon) this.currentWeapon).use(parent,Gdx.input.getX(),Gdx.graphics.getHeight() - Gdx.input.getY());
+            }else{
+
+            }
+           // parent.spawnEntity(new Projectile(this,this.currentWeapon,getX(),getY()));
+
         }
 
         if(new Random().nextInt(5) == 0){
-            takeDamage(10f);
+        //    takeDamage(10f);
         }
     }
 

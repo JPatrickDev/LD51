@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import me.jack.ld51.Entity.Projectiles.Knife;
 import me.jack.ld51.level.Level;
 
 public class GruntMob extends Mob {
@@ -15,6 +16,7 @@ public class GruntMob extends Mob {
 
     public GruntMob(int x, int y) {
         super(new Texture("grunt.png"), x, y);
+        currentWeapon = new Knife(this);
         //     health = 10;
     }
 
@@ -26,13 +28,14 @@ public class GruntMob extends Mob {
         Player player = parent.getPlayer();
         float xSpeed = (player.getX() - x);
         float ySpeed = (player.getY() - y);
-
-        if (Level.dist(this, player) < weaponRange) {
-            dX = 0;
-            dY = 0;
-            return;
+        if (currentWeapon != null) {
+            if (Level.dist(this, player) < currentWeapon.range()) {
+                dX = 0;
+                dY = 0;
+                currentWeapon.use(parent, parent.getPlayer());
+                return;
+            }
         }
-
         float factor = (float) (2 / Math.sqrt(xSpeed * xSpeed + ySpeed * ySpeed));
         xSpeed *= factor;
         ySpeed *= factor;
