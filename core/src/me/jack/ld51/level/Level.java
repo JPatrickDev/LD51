@@ -45,7 +45,7 @@ public class Level {
     Player player;
 
     public long roundTimer = System.currentTimeMillis();
-    public int currentRound = 1;
+    public int currentRound = 0;
 
     List<StairTile> stairs = new ArrayList<>();
 
@@ -74,7 +74,7 @@ public class Level {
         player = new Player(300, 300);
         entities.add(player);
 
-        newRoundSpawnMobs();
+        //  newRoundSpawnMobs();
     }
 
     public void renderTextures(SpriteBatch batch) {
@@ -112,7 +112,7 @@ public class Level {
         for (StairTile t : stairs) {
             for (int i = 0; i <= new Random().nextInt(5) + 1; i++) {
                 t.toSpawn.add(new GruntEnemy(t.tX * Tile.TILE_SIZE, t.tY * Tile.TILE_SIZE));
-                if(new Random().nextInt(5) == 0){
+                if (new Random().nextInt(5) == 0) {
                     t.toSpawn.add(new RangedEnemy(t.tX * Tile.TILE_SIZE, t.tY * Tile.TILE_SIZE));
                 }
             }
@@ -120,6 +120,11 @@ public class Level {
     }
 
     public void update() {
+        System.out.println("Level updating");
+        if (currentRound == 0) {
+            newRoundSpawnMobs();
+            currentRound = 1;
+        }
         if (System.currentTimeMillis() - roundTimer > 10000) {
             roundTimer = System.currentTimeMillis();
             newRoundStart();
@@ -152,8 +157,11 @@ public class Level {
         Iterator<Entity> iterator = toSpawn.iterator();
         while (iterator.hasNext()) {
             Entity e = iterator.next();
-            entities.add(e);
-            iterator.remove();
+            if(canSpawn(new Rectangle(e.getX(),e.getY(),e.getW(),e.getH())) || !(e instanceof Mob)){
+                entities.add(e);
+                iterator.remove();
+            }
+
         }
 
         toRemove.clear();
@@ -218,6 +226,16 @@ public class Level {
         target.move();
     }
 
+    public boolean canSpawn(Rectangle entity){
+        for(Entity e : entities){
+            if(!(e instanceof Mob))
+                continue;
+            if(new Rectangle(e.getX(),e.getY(),e.getW(),e.getH()).intersects(entity))
+                return false;
+        }
+        return true;
+    }
+
     public void collideWithWall(Entity target, Vector2 wall) {
         Vector2 v = new Vector2(target.getdX(), target.getdY());
         float dot = wall.dot(v);
@@ -236,7 +254,6 @@ public class Level {
 
     public void spawnEntity(Entity entity) {
         toSpawn.add(entity);
-        System.out.println("Spawning " + entity);
     }
 
     public ArrayList<Entity> toRemove = new ArrayList<>();
