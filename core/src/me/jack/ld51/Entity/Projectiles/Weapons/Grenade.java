@@ -22,7 +22,7 @@ public class Grenade extends RangedWeapon{
 
         this.name = "Grenade";
         this.description = "Explodes after a few seconds.";
-        this.upgrades = new String[]{"RADIUS:10:300:Increased blast radius:radius.png",
+        this.upgrades = new String[]{"RADIUS:1:5:Increased blast radius:radius.png",
                 "FIRESPLASH:2:5:Releases fire on detonation:firesplash.png"};
         unlockedAt = 3;
     }
@@ -55,7 +55,10 @@ public class Grenade extends RangedWeapon{
             if(LD51Game.rand(5) == 0 && appliedUpgrades.contains("FIRESPLASH")){
                 parent.spawnEntity(new FireParticle(source.getX(),source.getY(),3,3, ((Mob)source.getOwner())));
             }else{
-                parent.spawnEntity(new ExplosionParticle(source.getX(),source.getY(),3,3, ((Mob)source.getOwner())));
+                int v = 50;
+                if(appliedUpgrades.contains("RADIUS"))
+                    v = 100;
+                parent.spawnEntity(new ExplosionParticle(source.getX(),source.getY(),3,3, ((Mob)source.getOwner()),v));
             }
 
         }
