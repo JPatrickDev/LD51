@@ -10,11 +10,14 @@ import me.jack.ld51.Entity.Mobs.Mob;
 import me.jack.ld51.LD51Game;
 
 public class FlameJetParticle extends WeaponParticle {
-    public FlameJetParticle(int x, int y, int w, int h, int xVel, int yVel, Mob owner) {
+    public FlameJetParticle(int x, int y, int w, int h, int xVel, int yVel, Mob owner, boolean napalm) {
         super(x, y, w * 4, h * 4, Color.RED, Color.ORANGE,owner);
         dX = xVel;// + (new Random().nextInt(15) - 2);
         dY = yVel;// + (new Random().nextInt(15) - 2);
+        if(!napalm)
         lifespan = 200;
+        else
+            lifespan = 5000;
     }
 
     @Override

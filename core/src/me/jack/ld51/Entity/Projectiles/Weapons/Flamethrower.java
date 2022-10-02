@@ -18,29 +18,41 @@ public class Flamethrower extends RangedWeapon {
         icon = TexCache.get("flamethrower.png");
         this.name = "Flamethower";
         this.description = "Throws flames.";
-        this.upgrades = new String[]{"COOLER:20:1000:Increased cooling for longer bursts:cooler.png",
-                "SPREAD:25:200:Shoot in a wider arc:arc.png",
-                "NAPALM:15:500:Flames hang around for longer:napalm.png"};
-        unlockedAt = 5;
+        this.upgrades = new String[]{"COOLER:1:5:Increased cooling for longer bursts:cooler.png",
+                "SPREAD:1:1:Shoot in a wider arc:arc.png",
+                "NAPALM:1:1:Flames hang around for longer:napalm.png"};
+        unlockedAt = 1;
+        usageRate = 0.25f;
     }
 
     @Override
     public void use(Level parent, int tx, int ty) {
 
-
-        for (int i = 0; i != 5; i++) {
-            spawnFire(parent,tx + (LD51Game.rand(100) - 50),ty + (LD51Game.rand(100)- 50));
+        if (appliedUpgrades.contains("COOLER")) {
+            this.usageRate = 0.1f;
         }
+        if (usage > 0) {
+            int k = 5;
+            if(appliedUpgrades.contains("SPREAD")){
+                k = 10;
+            }
+            for (int i = 0; i != k; i++) {
+                spawnFire(parent, tx + (LD51Game.rand(100) - 50), ty + (LD51Game.rand(100) - 50));
+            }
+            usage -= usageRate;
+        }
+
     }
 
-    private void spawnFire(Level parent,int tx,int ty){
+    private void spawnFire(Level parent, int tx, int ty) {
         float xSpeed = (tx - owner.getX());
         float ySpeed = (ty - owner.getY());
         float factor = (float) (25 / Math.sqrt(xSpeed * xSpeed + ySpeed * ySpeed));
         xSpeed *= factor;
         ySpeed *= factor;
-        parent.spawnEntity(new FlameJetParticle(owner.getX() + owner.getW()/2, owner.getY() + owner.getH()/2, 3, 3, (int) xSpeed, (int) ySpeed,owner));
+        parent.spawnEntity(new FlameJetParticle(owner.getX() + owner.getW() / 2, owner.getY() + owner.getH() / 2, 3, 3, (int) xSpeed, (int) ySpeed, owner, appliedUpgrades.contains("NAPALM")));
     }
+
     @Override
     public long fireRate() {
         return 1;
