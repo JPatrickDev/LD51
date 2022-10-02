@@ -8,6 +8,8 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.Random;
 
 import me.jack.ld51.Entity.Particles.Particle;
+import me.jack.ld51.Entity.Particles.Weapons.FireParticle;
+import me.jack.ld51.Entity.Particles.Weapons.FlameJetParticle;
 import me.jack.ld51.level.Level;
 
 public abstract class Entity {
@@ -92,7 +94,7 @@ public abstract class Entity {
     public void move() {
         x += dX;
         y += dY;
-        if(!(this instanceof Particle)){
+        if(!(this instanceof Particle) ||  this instanceof FlameJetParticle){
         dX /= 1.1;
         dY /= 1.1;
         }else{
@@ -123,4 +125,7 @@ public abstract class Entity {
     public void setdY(float dY) {
         this.dY = dY;
     }
+
+
+    public void onRemove(Level parent){}
 }

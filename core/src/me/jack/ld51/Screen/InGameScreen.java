@@ -23,7 +23,7 @@ public class InGameScreen extends Screen{
     }
     int i= 0;
     public void render(){
-        System.out.println(Gdx.graphics.getFramesPerSecond());
+       // System.out.println(Gdx.graphics.getFramesPerSecond());
         if (i % 2 == 0) {
             level.update();
             i = 0;
@@ -38,6 +38,7 @@ public class InGameScreen extends Screen{
         hud.drawShapes(renderer);
         renderer.end();
         batch.begin();
+        level.getPlayer().renderTextures(batch);
         hud.drawTextures(batch);
         batch.end();
     }

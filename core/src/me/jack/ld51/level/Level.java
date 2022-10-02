@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -19,6 +20,8 @@ import me.jack.ld51.Entity.Particles.Decorative.DecorativeParticle;
 import me.jack.ld51.Entity.Particles.Drops.DropParticle;
 import me.jack.ld51.Entity.Particles.Drops.HealthDrop;
 import me.jack.ld51.Entity.Particles.Particle;
+import me.jack.ld51.Entity.Particles.Weapons.FlameJetParticle;
+import me.jack.ld51.Entity.Particles.Weapons.WeaponParticle;
 import me.jack.ld51.Entity.Projectiles.Bullet;
 import me.jack.ld51.Entity.Projectiles.Projectile;
 import me.jack.ld51.LD51Game;
@@ -82,14 +85,21 @@ public class Level {
             }
         }
         for (Entity e : entities) {
+            if (e instanceof Player)
+                continue;
             e.renderTextures(batch);
         }
+
+        // player.renderTextures(batch);
     }
 
     public void renderShapes(ShapeRenderer renderer) {
         for (Entity e : entities) {
+            if (e instanceof Player)
+                continue;
             e.renderShapes(renderer);
         }
+        //  player.renderShapes(renderer);
     }
 
 
@@ -99,7 +109,6 @@ public class Level {
 
 
     public void newRoundSpawnMobs() {
-        System.out.println("Spawning Mob round");
         for (StairTile t : stairs) {
             for (int i = 0; i <= new Random().nextInt(5) + 1; i++) {
                 t.toSpawn.add(new GruntMob(t.tX * Tile.TILE_SIZE, t.tY * Tile.TILE_SIZE));
@@ -108,7 +117,6 @@ public class Level {
     }
 
     public void update() {
-        System.out.println(System.currentTimeMillis() - roundTimer);
         if (System.currentTimeMillis() - roundTimer > 10000) {
             roundTimer = System.currentTimeMillis();
             newRoundStart();
@@ -121,23 +129,27 @@ public class Level {
 
 
         for (Entity e : toRemove) {
+            e.onRemove(this);
             entities.remove(e);
-            if (e instanceof Mob) {
+            if (e instanceof Mob) { //TODO should be moved inside Mob and Grunt
                 for (int i = 0; i != 50; i++) {
                     if (new Random().nextBoolean())
                         toSpawn.add(new BloodParticle(e.getX(), e.getY(), 4, 4));
                     else
                         toSpawn.add(new BloodParticle(e.getX(), e.getY(), 2, 2));
                 }
-                if(new Random().nextInt(5) == 0){
-                    toSpawn.add(new HealthDrop(e.getX(),e.getY()));
+                if (new Random().nextInt(5) == 0) {
+                    toSpawn.add(new HealthDrop(e.getX(), e.getY()));
                 }
             }
         }
-        for (Entity e : toSpawn) {
+        Iterator<Entity> iterator = toSpawn.iterator();
+        while (iterator.hasNext()) {
+            Entity e = iterator.next();
             entities.add(e);
+            iterator.remove();
         }
-        toSpawn.clear();
+
         toRemove.clear();
     }
 
@@ -171,16 +183,29 @@ public class Level {
                 if (e instanceof Mob && target instanceof Projectile && ((Projectile) target).getOwner() != e) {
                     if (!(((Projectile) target).getOwner() instanceof GruntMob && e instanceof GruntMob)) {
                         ((Mob) e).takeDamage(((Projectile) target).toFire.damage());
+                        removeEntity(target);
                     }
                 } else {
-                    if ((!(target instanceof Projectile) || ((Projectile) target).getOwner() != e) && !(e instanceof DropParticle)) {
+                    if ((!(target instanceof Projectile) || ((Projectile) target).getOwner() != e) && !(e instanceof Particle)) {
                         target.setdX(0);
                         target.setdY(0);
                     }
                 }
-                if(target instanceof Player && e instanceof DropParticle){
+                if (target instanceof Player && e instanceof DropParticle) {
                     ((DropParticle) e).apply(this, (Mob) target);
                     removeEntity(e);
+                }
+                if (target instanceof GruntMob && e instanceof WeaponParticle) {
+                    ((Mob) target).takeDamage(((WeaponParticle) e).getDamage());
+                    removeEntity(e);
+                }
+                if (target instanceof WeaponParticle) {
+                    if (e instanceof Mob) {
+                        if (((WeaponParticle) target).owner != e) {
+                            ((Mob) e).takeDamage(((WeaponParticle) target).getDamage());
+                            removeEntity(target);
+                        }
+                    }
                 }
             }
         }
@@ -205,6 +230,7 @@ public class Level {
 
     public void spawnEntity(Entity entity) {
         toSpawn.add(entity);
+        System.out.println("Spawning " + entity);
     }
 
     public ArrayList<Entity> toRemove = new ArrayList<>();
@@ -214,6 +240,7 @@ public class Level {
             LD51Game.gameover();
             return;
         }
+        //    if (!(entity instanceof Particle) )
         toRemove.add(entity);
     }
 

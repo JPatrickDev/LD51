@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.Random;
 
 import me.jack.ld51.Entity.Projectiles.Bullet;
+import me.jack.ld51.Entity.Projectiles.Flamethrower;
+import me.jack.ld51.Entity.Projectiles.Grenade;
 import me.jack.ld51.Entity.Projectiles.Knife;
 import me.jack.ld51.Entity.Projectiles.PlayerKnife;
 import me.jack.ld51.Entity.Projectiles.Projectile;
@@ -23,6 +25,8 @@ public class Player extends Mob {
 
         weaponWheel[0] = new PlayerKnife(this);
         weaponWheel[1] = new Bullet(this,100);
+        weaponWheel[2] = new Grenade(this,1000);
+        weaponWheel[3] = new Flamethrower(this);
         currentWeapon = weaponWheel[0];
         setStartHealth(150f);
     }

@@ -7,13 +7,16 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.Random;
 
+import javax.sound.midi.SysexMessage;
+
 import me.jack.ld51.Entity.Entity;
 import me.jack.ld51.level.Level;
 
 public class Particle extends Entity {
-    private Color start, end;
+    protected Color start;
+    protected Color end;
 
-    long starttime = 0;
+    public long starttime = 0;
 
     protected long lifespan = 1000;
 
@@ -21,15 +24,20 @@ public class Particle extends Entity {
         super(x, y, w, h);
         this.start = c1;
         this.end = c2;
-        starttime = System.currentTimeMillis();
     }
 
     @Override
     public void update(Level parent) {
         super.update(parent);
-        if(System.currentTimeMillis() - starttime > lifespan && new Random().nextInt(15) == 0){
-            parent.removeEntity(this);
+
+        if(Math.abs(dX) == 0 || Math.abs(dY) == 0){
+            if(starttime == 0)
+               starttime = System.currentTimeMillis();
+            if(System.currentTimeMillis() - starttime > lifespan && new Random().nextInt(5) == 0){
+                parent.removeEntity(this);
+            }
         }
+
     }
 
     @Override
@@ -39,7 +47,6 @@ public class Particle extends Entity {
 
     @Override
     public void renderShapes(ShapeRenderer renderer) {
-        System.out.println("Drawing particle");
         renderer.rect(x, y, w, h, start, start, end, end);
     }
 }

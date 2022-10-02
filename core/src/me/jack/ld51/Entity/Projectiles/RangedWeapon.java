@@ -28,4 +28,8 @@ public abstract class RangedWeapon extends Weapon {
             lastUse = System.currentTimeMillis();
         }
     }
+
+    public void onRemove(Projectile source,Level parent){
+
+    }
 }

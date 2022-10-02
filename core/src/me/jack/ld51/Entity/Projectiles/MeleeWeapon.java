@@ -14,7 +14,7 @@ public abstract class MeleeWeapon extends Weapon{
     @Override
     public void use(Level parent, Mob target) {
         if(System.currentTimeMillis() - lastUse > fireRate()) {
-            target.takeDamage(damage());
+         //   target.takeDamage(damage());
             lastUse = System.currentTimeMillis();
         }
     }

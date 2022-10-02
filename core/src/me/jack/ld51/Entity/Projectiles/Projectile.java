@@ -59,4 +59,9 @@ public class Projectile extends Entity {
         return this.owner;
     }
 
+    @Override
+    public void onRemove(Level parent) {
+        super.onRemove(parent);
+        this.toFire.onRemove(this,parent);
+    }
 }

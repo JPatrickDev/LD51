@@ -8,21 +8,28 @@ Player can shoot a basic projectile with mouse click/
 Enemy Mob that chases after the player/
 
 
-Projectiles hurt targets
-Mobs die if no health
+Projectiles hurt targets/
+Mobs die if no health/
 
-Projectiles have a fire rate
+Projectiles have a fire rate/
+
+
+Flamethrower/
+Tracking Rocket
+Upgrades for weapons
+Second enemy that has ranged attack
+
 
 
 
 Particles
   - Bouncing off wall
-  - Death
+  - Death/
 
 
 Drops
     - Ammo
-    - Health
+    - Health/
     - Powerups?
 
 
