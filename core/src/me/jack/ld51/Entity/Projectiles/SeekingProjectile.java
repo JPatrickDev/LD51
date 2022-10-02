@@ -1,9 +1,8 @@
 package me.jack.ld51.Entity.Projectiles;
 
-import java.util.Random;
-
 import me.jack.ld51.Entity.Entity;
 import me.jack.ld51.Entity.Mobs.Mob;
+import me.jack.ld51.Entity.Projectiles.Weapons.RangedWeapon;
 import me.jack.ld51.level.Level;
 
 public class SeekingProjectile extends Projectile {

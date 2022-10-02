@@ -1,11 +1,9 @@
 package me.jack.ld51.Entity.Projectiles;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-
 import java.util.Random;
 
 import me.jack.ld51.Entity.Entity;
+import me.jack.ld51.Entity.Projectiles.Weapons.RangedWeapon;
 import me.jack.ld51.level.Level;
 
 public class Projectile extends Entity {

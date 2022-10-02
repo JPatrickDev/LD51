@@ -18,6 +18,23 @@ Flamethrower/
 Tracking Rocket
     - Fire particles out of back?
 Upgrades for weapons
+    - Mobs drop coins that can be spent on upgrades
+    - Upgrades dialog
+        - Row of 4 Weapons at top, current selected highlighted
+        - Underneath, show current upgrades and remaining to be unlocked
+            - Combo of having the coins and being a high enough round
+
+    - Upgrades:
+        - Gun
+            - Faster fire rate
+            - Bigger bullets
+            - Multiple bullets per shot
+        - Grenade
+            - Fire inclusion as upgrade
+            - Larger blast radius
+        - Flamethrower
+            - Ammo lasts longer (Should only be able to use for a few seconds at a time without upgrade)
+
 Second enemy that has ranged attack
 
 

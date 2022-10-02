@@ -1,4 +1,4 @@
-package me.jack.ld51.Entity.Projectiles;
+package me.jack.ld51.Entity.Projectiles.Weapons;
 
 import com.badlogic.gdx.graphics.Texture;
 

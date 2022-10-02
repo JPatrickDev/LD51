@@ -1,12 +1,24 @@
-package me.jack.ld51.Entity.Projectiles;
+package me.jack.ld51.Entity.Projectiles.Weapons;
 
 import com.badlogic.gdx.graphics.Texture;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import me.jack.ld51.Entity.Entity;
 import me.jack.ld51.Entity.Mobs.Mob;
 import me.jack.ld51.level.Level;
 
 public abstract class Weapon {
+
+
+    public String name,description;
+
+    public int unlockedAt;
+
+
+    public String[] upgrades = new String[0];
+    public List<String> appliedUpgrades = new ArrayList<String>();
 
     protected Mob owner;
     protected long lastUse;

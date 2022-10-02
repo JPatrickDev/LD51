@@ -1,11 +1,10 @@
-package me.jack.ld51.Entity.Projectiles;
+package me.jack.ld51.Entity.Projectiles.Weapons;
 
 import com.badlogic.gdx.graphics.Texture;
 
 import java.util.Random;
 
 import me.jack.ld51.Entity.Mobs.Mob;
-import me.jack.ld51.Entity.Particles.Weapons.FireParticle;
 import me.jack.ld51.Entity.Particles.Weapons.FlameJetParticle;
 import me.jack.ld51.level.Level;
 
@@ -14,7 +13,12 @@ public class Flamethrower extends RangedWeapon {
 
     public Flamethrower(Mob owner) {
         super(new Texture("projectiles/bullet.png"), owner);
-        icon = new Texture("gun.png");
+        icon = new Texture("flamethrower.png");
+        this.name = "Flamethower";
+        this.description = "Throws flames.";
+        this.upgrades = new String[]{"COOLER:20:1000:Increased cooling for longer bursts:cooler.png",
+                "SPREAD:25:200:Shoot in a wider arc:arc.png",
+                "NAPALM:15:500:Flames hang around for longer:napalm.png"};
     }
 
     @Override

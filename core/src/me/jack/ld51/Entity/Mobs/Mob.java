@@ -1,12 +1,9 @@
 package me.jack.ld51.Entity.Mobs;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import me.jack.ld51.Entity.Entity;
-import me.jack.ld51.Entity.Projectiles.Bullet;
-import me.jack.ld51.Entity.Projectiles.Weapon;
+import me.jack.ld51.Entity.Projectiles.Weapons.Weapon;
 import me.jack.ld51.level.Level;
 
 public class Mob extends Entity {
@@ -44,5 +41,11 @@ public class Mob extends Entity {
         health += v;
         if(health > maxHealth)
             health = maxHealth;
+    }
+
+    public void addCoins(int i) {
+        if(this instanceof Player){
+            ((Player) this).coins += i;
+        }
     }
 }

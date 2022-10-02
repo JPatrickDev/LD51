@@ -6,21 +6,19 @@ import com.badlogic.gdx.graphics.Texture;
 
 import java.util.Random;
 
-import me.jack.ld51.Entity.Projectiles.Bullet;
-import me.jack.ld51.Entity.Projectiles.Flamethrower;
-import me.jack.ld51.Entity.Projectiles.Grenade;
-import me.jack.ld51.Entity.Projectiles.Knife;
-import me.jack.ld51.Entity.Projectiles.PlayerKnife;
-import me.jack.ld51.Entity.Projectiles.Projectile;
-import me.jack.ld51.Entity.Projectiles.RangedWeapon;
-import me.jack.ld51.Entity.Projectiles.SeekerRocket;
-import me.jack.ld51.Entity.Projectiles.Weapon;
+import me.jack.ld51.Entity.Projectiles.Weapons.Bullet;
+import me.jack.ld51.Entity.Projectiles.Weapons.Flamethrower;
+import me.jack.ld51.Entity.Projectiles.Weapons.Grenade;
+import me.jack.ld51.Entity.Projectiles.Weapons.RangedWeapon;
+import me.jack.ld51.Entity.Projectiles.Weapons.SeekerRocket;
+import me.jack.ld51.Entity.Projectiles.Weapons.Weapon;
 import me.jack.ld51.level.Level;
 
 public class Player extends Mob {
 
     public Weapon[] weaponWheel = new Weapon[4];
 
+    public int coins = 500;
     public Player(int x, int y) {
         super(new Texture("player.png"), x, y);
 

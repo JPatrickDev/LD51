@@ -1,4 +1,4 @@
-package me.jack.ld51.Entity.Projectiles;
+package me.jack.ld51.Entity.Projectiles.Weapons;
 
 import com.badlogic.gdx.graphics.Texture;
 
@@ -7,6 +7,7 @@ import java.util.Random;
 import me.jack.ld51.Entity.Mobs.Mob;
 import me.jack.ld51.Entity.Particles.Weapons.ExplosionParticle;
 import me.jack.ld51.Entity.Particles.Weapons.FireParticle;
+import me.jack.ld51.Entity.Projectiles.Projectile;
 import me.jack.ld51.level.Level;
 
 public class Grenade extends RangedWeapon{
@@ -16,6 +17,11 @@ public class Grenade extends RangedWeapon{
         super(new Texture("grenade.png"),owner);
         icon  = new Texture("grenade.png");
         this.firerate = firerate;
+
+        this.name = "Grenade";
+        this.description = "Explodes after a few seconds.";
+        this.upgrades = new String[]{"RADIUS:10:300:Increased blast radius:radius.png",
+                "FIRESPLASH:18:600:Releases fire on detonation:firesplash.png"};
     }
 
 

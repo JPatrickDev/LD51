@@ -1,4 +1,4 @@
-package me.jack.ld51.Entity.Projectiles;
+package me.jack.ld51.Entity.Projectiles.Weapons;
 
 import com.badlogic.gdx.graphics.Texture;
 
@@ -7,6 +7,8 @@ import java.util.Random;
 import me.jack.ld51.Entity.Mobs.Mob;
 import me.jack.ld51.Entity.Particles.Weapons.ExplosionParticle;
 import me.jack.ld51.Entity.Particles.Weapons.FireParticle;
+import me.jack.ld51.Entity.Projectiles.Projectile;
+import me.jack.ld51.Entity.Projectiles.SeekingProjectile;
 import me.jack.ld51.level.Level;
 
 public class SeekerRocket extends RangedWeapon{
@@ -14,6 +16,11 @@ public class SeekerRocket extends RangedWeapon{
     public SeekerRocket(Mob owner) {
         super(new Texture("seekerrocket.png"),owner);
         icon  = new Texture("seekerrocket.png");
+        this.name = "Seeking Missile";
+        this.description = "Locks on to a nearby target.";
+        this.upgrades = new String[]{"DAMAGE:20:1000:Increased blast radius:radius.png",
+                "MIRV:25:200:Split in to three sub rockets after launch:mirv.png",
+                "FIRERATE:15:500:Increased rate of fire:rapidfire.png"};
     }
 
     @Override

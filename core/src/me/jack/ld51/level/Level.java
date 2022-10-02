@@ -17,15 +17,13 @@ import me.jack.ld51.Entity.Mobs.Mob;
 import me.jack.ld51.Entity.Mobs.Player;
 import me.jack.ld51.Entity.Particles.Decorative.BloodParticle;
 import me.jack.ld51.Entity.Particles.Decorative.DecorativeParticle;
+import me.jack.ld51.Entity.Particles.Drops.CoinDrop;
 import me.jack.ld51.Entity.Particles.Drops.DropParticle;
 import me.jack.ld51.Entity.Particles.Drops.HealthDrop;
 import me.jack.ld51.Entity.Particles.Particle;
-import me.jack.ld51.Entity.Particles.Weapons.FlameJetParticle;
 import me.jack.ld51.Entity.Particles.Weapons.WeaponParticle;
-import me.jack.ld51.Entity.Projectiles.Bullet;
 import me.jack.ld51.Entity.Projectiles.Projectile;
 import me.jack.ld51.LD51Game;
-import me.jack.ld51.Screen.GameOverScreen;
 import me.jack.ld51.tile.FloorTile;
 import me.jack.ld51.tile.LeftStairTile;
 import me.jack.ld51.tile.RightStairTile;
@@ -45,7 +43,7 @@ public class Level {
     Player player;
 
     public long roundTimer = System.currentTimeMillis();
-    public int currentRound = 1;
+    public int currentRound = 55;
 
     List<StairTile> stairs = new ArrayList<>();
 
@@ -140,6 +138,9 @@ public class Level {
                 }
                 if (new Random().nextInt(5) == 0) {
                     toSpawn.add(new HealthDrop(e.getX(), e.getY()));
+                }
+                if (new Random().nextInt(5) == 0) {
+                    toSpawn.add(new CoinDrop(e.getX(), e.getY()));
                 }
             }
         }

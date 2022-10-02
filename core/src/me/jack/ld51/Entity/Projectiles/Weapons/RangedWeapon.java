@@ -1,9 +1,9 @@
-package me.jack.ld51.Entity.Projectiles;
+package me.jack.ld51.Entity.Projectiles.Weapons;
 
 import com.badlogic.gdx.graphics.Texture;
 
-import me.jack.ld51.Entity.Entity;
 import me.jack.ld51.Entity.Mobs.Mob;
+import me.jack.ld51.Entity.Projectiles.Projectile;
 import me.jack.ld51.level.Level;
 
 public abstract class RangedWeapon extends Weapon {
