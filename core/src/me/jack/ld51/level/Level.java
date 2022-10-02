@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -105,6 +106,8 @@ public class Level {
 
     public void newRoundStart() {
         newRoundSpawnMobs();
+
+        newRoundChangeWalls();
     }
 
 
@@ -119,10 +122,48 @@ public class Level {
         }
     }
 
+
+    HashMap<Rectangle, Tile> walls = new HashMap<>();
+
+    public void newRoundChangeWalls() {
+        for (Rectangle r : walls.keySet()) {
+            int tx = (int) (r.getX() / Tile.TILE_SIZE);
+            int ty = (int) (r.getY() / Tile.TILE_SIZE);
+            map[tx][ty] = new FloorTile(tx, ty);
+        }
+        walls.clear();
+        int v = new Random().nextInt(5) + 2;
+        for (int i = 0; i != v; i++) {
+            int s = new Random().nextInt(5) + 1;
+            int x = new Random().nextInt(w);
+            int y = new Random().nextInt(h);
+            int dX = 1, dY = 0;
+            if (new Random().nextBoolean()) {
+                dX = 0;
+                dY = 1;
+            }
+            if (new Random().nextBoolean()) {
+                dX *= -1;
+                dY *= -1;
+            }
+            for (int k = 0; k != s; k++) {
+                if (inBounds(x + (k * dX), y + (k * dY)) && map[x + (k * dX)][y + (k * dY)] instanceof FloorTile && canSpawn(new Rectangle((x + (dX * k)) * Tile.TILE_SIZE, (y + (dY * k)) * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE))) {
+                    Tile t = new WallTile(x + (k * dX), y + (k * dY));
+                    map[x + (k * dX)][y + (k * dY)] = t;
+                    walls.put(new Rectangle((x + (dX * k)) * Tile.TILE_SIZE, (y + (dY * k)) * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE), t);
+                }
+            }
+        }
+    }
+
+    public boolean inBounds(int x, int y) {
+        return x > 0 && x < w && y > 0 && y < h;
+    }
+
     public void update() {
         System.out.println("Level updating");
         if (currentRound == 0) {
-            newRoundSpawnMobs();
+            newRoundChangeWalls();
             currentRound = 1;
         }
         if (System.currentTimeMillis() - roundTimer > 10000) {
@@ -157,7 +198,7 @@ public class Level {
         Iterator<Entity> iterator = toSpawn.iterator();
         while (iterator.hasNext()) {
             Entity e = iterator.next();
-            if(canSpawn(new Rectangle(e.getX(),e.getY(),e.getW(),e.getH())) || !(e instanceof Mob)){
+            if (canSpawn(new Rectangle(e.getX(), e.getY(), e.getW(), e.getH())) || !(e instanceof Mob)) {
                 entities.add(e);
                 iterator.remove();
             }
@@ -182,10 +223,24 @@ public class Level {
         if (newY < Tile.TILE_SIZE || newY > 480 - Tile.TILE_SIZE - target.getH()) {
             collideWithWall(target, new Vector2(0, 1));
         }
+
+
         if (target instanceof Player) {
             //   target.move(); return;
         }
         Rectangle r = new Rectangle((int) newX, (int) newY, target.getW(), target.getH());
+
+        for (Rectangle wall : walls.keySet()) {
+            if (wall.intersects(r)) {
+                if (target.getX() > wall.getX() && target.getX() < wall.getX() + wall.getWidth()) {
+                    collideWithWall(target, new Vector2(0, 1));
+                } else {
+                    collideWithWall(target, new Vector2(1, 0));
+                }
+
+            }
+        }
+
         for (Entity e : entities) {
             if (e == target || e instanceof Projectile || e instanceof DecorativeParticle)
                 continue;
@@ -226,11 +281,11 @@ public class Level {
         target.move();
     }
 
-    public boolean canSpawn(Rectangle entity){
-        for(Entity e : entities){
-            if(!(e instanceof Mob))
+    public boolean canSpawn(Rectangle entity) {
+        for (Entity e : entities) {
+            if (!(e instanceof Mob))
                 continue;
-            if(new Rectangle(e.getX(),e.getY(),e.getW(),e.getH()).intersects(entity))
+            if (new Rectangle(e.getX(), e.getY(), e.getW(), e.getH()).intersects(entity))
                 return false;
         }
         return true;
