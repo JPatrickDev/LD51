@@ -53,7 +53,6 @@ public class InGameScreen extends Screen{
         level.getPlayer().renderTextures(batch);
         hud.drawTextures(batch);
         batch.end();
-
         if(dialog != null){
             renderer.begin();
             dialog.renderShapes(renderer);

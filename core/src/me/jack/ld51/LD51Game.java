@@ -14,6 +14,7 @@ import javax.print.DocFlavor;
 import me.jack.ld51.Entity.Mobs.RangedEnemy;
 import me.jack.ld51.Screen.GameOverScreen;
 import me.jack.ld51.Screen.InGameScreen;
+import me.jack.ld51.Screen.MainMenu;
 import me.jack.ld51.Screen.Screen;
 import me.jack.ld51.level.Level;
 import me.jack.ld51.ui.HUD;
@@ -25,8 +26,8 @@ public class LD51Game extends ApplicationAdapter {
     SpriteBatch batch;
     ShapeRenderer renderer;
 
-    public static void gameover() {
-        changeScreen(new GameOverScreen(getInstance().batch, getInstance().renderer));
+    public static void gameover(Level parent) {
+        changeScreen(new GameOverScreen(getInstance().batch, getInstance().renderer,parent));
     }
 
     @Override
@@ -34,7 +35,7 @@ public class LD51Game extends ApplicationAdapter {
         batch = new SpriteBatch();
         renderer = new ShapeRenderer();
         renderer.setAutoShapeType(true);
-        currentScreen = new InGameScreen(batch, renderer);
+        currentScreen = new MainMenu(batch, renderer);
         instance = this;
     }
 

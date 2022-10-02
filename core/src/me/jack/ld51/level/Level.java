@@ -161,6 +161,7 @@ public class Level {
     }
 
     public void update() {
+
         System.out.println("Level updating");
         if (currentRound == 0) {
             newRoundChangeWalls();
@@ -212,7 +213,6 @@ public class Level {
     //Attempt to apply the Entity's current velocity to its position
     //If we collide with the outer walls, bounce off them
     public void doMove(Entity target) {
-
 
         float newX = target.getX() + target.getdX();
         float newY = target.getY() + target.getdY();
@@ -315,7 +315,7 @@ public class Level {
 
     public void removeEntity(Entity entity) {
         if (entity instanceof Player) {
-            LD51Game.gameover();
+            LD51Game.gameover(this);
             return;
         }
         //    if (!(entity instanceof Particle) )
