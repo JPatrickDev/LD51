@@ -22,6 +22,8 @@ public class HUD {
     public Texture upgradesButton = new Texture("upgrade.png");
     InGameScreen igs;
 
+
+
     public HUD(Level parent, InGameScreen igs) {
         this.level = parent;
         this.igs = igs;
@@ -36,6 +38,7 @@ public class HUD {
         if (Gdx.input.isButtonJustPressed(0)) {
             if (new Rectangle(230 + 2, (int) -wheelRadius - 34, 128, 32).contains(InGameScreen.getMX(), InGameScreen.getMY())) {
                 igs.dialog = new UpgradesDialog(level, igs);
+                level.pausedAt = System.currentTimeMillis();
             }
         }
     }
@@ -69,7 +72,10 @@ public class HUD {
         renderer.setColor(Color.BLACK);
         renderer.rect(x, y, 100, 30);
         renderer.setColor(Color.CYAN);
-        renderer.rect(x, y, 100 * ((System.currentTimeMillis() - level.roundTimer) / 10000.0f), 30);
+        long v = System.currentTimeMillis();
+        if(level.pausedAt != -1)
+            v = level.pausedAt;
+        renderer.rect(x, y, 100 * ((v- level.roundTimer) / 10000.0f), 30);
     }
 
     public void drawRoundBarTextures(SpriteBatch batch, int x, int y) {

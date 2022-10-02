@@ -26,7 +26,6 @@ public class InGameScreen extends Screen{
         this.renderer = renderer;
         level = new Level();
         hud = new HUD(level,this);
-        dialog = new UpgradesDialog(level,this);
     }
     int i= 0;
     public void render(){

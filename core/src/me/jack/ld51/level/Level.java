@@ -47,7 +47,7 @@ public class Level {
 
     public long roundTimer = System.currentTimeMillis();
     public int currentRound = 0;
-
+    public long pausedAt = -1;
     List<StairTile> stairs = new ArrayList<>();
 
     public Level() {

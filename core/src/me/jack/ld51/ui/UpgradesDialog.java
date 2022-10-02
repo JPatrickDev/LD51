@@ -51,6 +51,9 @@ public class UpgradesDialog {
             }
             if (new Rectangle(550, 415, 32, 32).contains(InGameScreen.getMX(), InGameScreen.getMY())) {
                 igs.dialog = null;
+                parent.roundTimer += (System.currentTimeMillis() - parent.pausedAt);
+                parent.pausedAt = -1;
+
             }
             if (currentPurchaseButtons == null) {
                 return;
