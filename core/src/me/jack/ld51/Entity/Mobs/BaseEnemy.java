@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.jack.ld51.Entity.Projectiles.Weapons.Knife;
+import me.jack.ld51.Screen.InGameScreen;
 import me.jack.ld51.level.Level;
 import me.jack.ld51.tile.Tile;
 
@@ -45,6 +46,7 @@ public abstract class BaseEnemy extends Mob {
             }
         }
         if (currentTarget != null) {
+            angle = (float) -(Math.atan2(this.x - currentTarget.getX() * Tile.TILE_SIZE, this.y - currentTarget.getY() * Tile.TILE_SIZE ) * 180 / Math.PI) -180;
             float xSpeed = (currentTarget.getX() * Tile.TILE_SIZE - getX());
             float ySpeed = (currentTarget.getY() * Tile.TILE_SIZE - getY());
             if (currentWeapon != null) {

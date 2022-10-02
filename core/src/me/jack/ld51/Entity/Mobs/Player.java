@@ -37,6 +37,7 @@ public class Player extends Mob {
     @Override
     public void update(Level parent) {
         super.update(parent);
+        angle = (float) -(Math.atan2(this.x - InGameScreen.getMX(), this.y - InGameScreen.getMY()) * 180 / Math.PI-180);
         for(Weapon w : weaponWheel){
             if(w != null){
                 w.usage += w.regenRate;

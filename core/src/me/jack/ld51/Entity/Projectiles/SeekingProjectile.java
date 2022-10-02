@@ -29,6 +29,7 @@ public class SeekingProjectile extends Projectile {
             ySpeed *= factor;
             dX = xSpeed;
             dY = ySpeed;
+            angle = (float) -(Math.atan2(this.x - target.getX(), this.y - target.getY()) * 180 / Math.PI) + 90;
         }
         if (!parent.entities.contains(target)) {
             target = null;
@@ -36,6 +37,7 @@ public class SeekingProjectile extends Projectile {
         if (bounces > 0) {
             parent.removeEntity(this);
         }
+
     }
 
 }

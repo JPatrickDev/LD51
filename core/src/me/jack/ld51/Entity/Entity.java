@@ -3,6 +3,7 @@ package me.jack.ld51.Entity;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Affine2;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.Random;
@@ -21,7 +22,7 @@ public abstract class Entity {
     protected int x, y;
     protected int w;
     protected int h;
-
+    public float angle;
 
     //How many times the Entity has bounced off a wall
     public int bounces;
@@ -41,7 +42,8 @@ public abstract class Entity {
     }
 
     public void renderTextures(SpriteBatch batch) {
-        batch.draw(texture, getX(), getY());
+      //  batch.draw(texture, getX(), getY());
+        batch.draw(texture, x, y, w/2, h/2, texture.getWidth(), texture.getHeight(), 1, 1, angle, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
     }
 
     public void renderShapes(ShapeRenderer renderer) {
@@ -96,15 +98,15 @@ public abstract class Entity {
     public void move() {
         x += dX;
         y += dY;
-        if(!(this instanceof Particle) ||  this instanceof FlameJetParticle){
-        dX /= 1.1;
-        dY /= 1.1;
-        }else{
+        if (!(this instanceof Particle) || this instanceof FlameJetParticle) {
+            dX /= 1.1;
+            dY /= 1.1;
+        } else {
             dX /= 2.5;
             dY /= 2.5;
         }
 
-        if(this instanceof Particle && (Math.abs(dX) <= 0.5 || Math.abs(dY) <= 0.5)){
+        if (this instanceof Particle && (Math.abs(dX) <= 0.5 || Math.abs(dY) <= 0.5)) {
             dX = 0;
             dY = 0;
         }
@@ -129,5 +131,6 @@ public abstract class Entity {
     }
 
 
-    public void onRemove(Level parent){}
+    public void onRemove(Level parent) {
+    }
 }
