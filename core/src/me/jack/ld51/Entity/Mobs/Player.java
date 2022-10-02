@@ -13,6 +13,7 @@ import me.jack.ld51.Entity.Projectiles.Knife;
 import me.jack.ld51.Entity.Projectiles.PlayerKnife;
 import me.jack.ld51.Entity.Projectiles.Projectile;
 import me.jack.ld51.Entity.Projectiles.RangedWeapon;
+import me.jack.ld51.Entity.Projectiles.SeekerRocket;
 import me.jack.ld51.Entity.Projectiles.Weapon;
 import me.jack.ld51.level.Level;
 
@@ -23,10 +24,11 @@ public class Player extends Mob {
     public Player(int x, int y) {
         super(new Texture("player.png"), x, y);
 
-        weaponWheel[0] = new PlayerKnife(this);
-        weaponWheel[1] = new Bullet(this,100);
-        weaponWheel[2] = new Grenade(this,1000);
-        weaponWheel[3] = new Flamethrower(this);
+
+        weaponWheel[0] = new Bullet(this,100);
+        weaponWheel[1] = new Grenade(this,1000);
+        weaponWheel[2] = new Flamethrower(this);
+        weaponWheel[3] = new SeekerRocket(this);
         currentWeapon = weaponWheel[0];
         setStartHealth(150f);
     }
@@ -47,7 +49,7 @@ public class Player extends Mob {
         }
 
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-            if (this.currentWeapon instanceof RangedWeapon) {
+            if (this.currentWeapon instanceof RangedWeapon && !(this.currentWeapon instanceof SeekerRocket)) {
                 ((RangedWeapon) this.currentWeapon).use(parent, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
             } else {
                 Mob m = parent.findMobInRange(this, this.currentWeapon.range());

@@ -35,7 +35,7 @@ import me.jack.ld51.tile.WallTile;
 
 public class Level {
 
-    private ArrayList<Entity> entities = new ArrayList<Entity>();
+    public ArrayList<Entity> entities = new ArrayList<Entity>();
 
 
     private int w, h;

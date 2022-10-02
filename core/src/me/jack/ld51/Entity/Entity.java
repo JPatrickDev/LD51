@@ -98,8 +98,8 @@ public abstract class Entity {
         dX /= 1.1;
         dY /= 1.1;
         }else{
-            dX /= 1.5;
-            dY /= 1.5;
+            dX /= 2.5;
+            dY /= 2.5;
         }
 
         if(this instanceof Particle && (Math.abs(dX) <= 0.5 || Math.abs(dY) <= 0.5)){

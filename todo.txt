@@ -16,6 +16,7 @@ Projectiles have a fire rate/
 
 Flamethrower/
 Tracking Rocket
+    - Fire particles out of back?
 Upgrades for weapons
 Second enemy that has ranged attack
 
