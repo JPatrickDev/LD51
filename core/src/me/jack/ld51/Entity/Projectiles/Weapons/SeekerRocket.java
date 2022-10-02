@@ -9,13 +9,15 @@ import me.jack.ld51.Entity.Particles.Weapons.ExplosionParticle;
 import me.jack.ld51.Entity.Particles.Weapons.FireParticle;
 import me.jack.ld51.Entity.Projectiles.Projectile;
 import me.jack.ld51.Entity.Projectiles.SeekingProjectile;
+import me.jack.ld51.LD51Game;
 import me.jack.ld51.level.Level;
+import me.jack.ld51.ui.TexCache;
 
 public class SeekerRocket extends RangedWeapon{
     //TODO Map for common textures for all entities to use
     public SeekerRocket(Mob owner) {
-        super(new Texture("seekerrocket.png"),owner);
-        icon  = new Texture("seekerrocket.png");
+        super(TexCache.get("seekerrocket.png"),owner);
+        icon  = TexCache.get("seekerrocket.png");
         this.name = "Seeking Missile";
         this.description = "Locks on to a nearby target.";
         this.upgrades = new String[]{"DAMAGE:20:1000:Increased blast radius:radius.png",
@@ -59,7 +61,7 @@ public class SeekerRocket extends RangedWeapon{
     public void onRemove(Projectile source, Level parent){
         System.out.println("Grenade removed");
         for(int i= 0; i != 100; i++){
-            if(new Random().nextInt(5) == 0){
+            if(LD51Game.rand(5) == 0){
                 parent.spawnEntity(new FireParticle(source.getX(),source.getY(),3,3, ((Mob)source.getOwner())));
             }else{
                 parent.spawnEntity(new ExplosionParticle(source.getX(),source.getY(),3,3, ((Mob)source.getOwner())));

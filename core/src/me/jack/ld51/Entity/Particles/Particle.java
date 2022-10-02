@@ -10,6 +10,7 @@ import java.util.Random;
 import javax.sound.midi.SysexMessage;
 
 import me.jack.ld51.Entity.Entity;
+import me.jack.ld51.LD51Game;
 import me.jack.ld51.level.Level;
 
 public class Particle extends Entity {
@@ -33,7 +34,7 @@ public class Particle extends Entity {
         if(Math.abs(dX) == 0 || Math.abs(dY) == 0){
             if(starttime == 0)
                starttime = System.currentTimeMillis();
-            if(System.currentTimeMillis() - starttime > lifespan && new Random().nextInt(5) == 0){
+            if(System.currentTimeMillis() - starttime > lifespan && LD51Game.rand(5) == 0){
                 parent.removeEntity(this);
             }
         }

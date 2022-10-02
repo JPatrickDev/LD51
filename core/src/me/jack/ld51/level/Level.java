@@ -113,9 +113,9 @@ public class Level {
 
     public void newRoundSpawnMobs() {
         for (StairTile t : stairs) {
-            for (int i = 0; i <= new Random().nextInt(5) + 1; i++) {
+            for (int i = 0; i <= LD51Game.rand(5) + 1; i++) {
                 t.toSpawn.add(new GruntEnemy(t.tX * Tile.TILE_SIZE, t.tY * Tile.TILE_SIZE));
-                if (new Random().nextInt(5) == 0) {
+                if (LD51Game.rand(5) == 0) {
                     t.toSpawn.add(new RangedEnemy(t.tX * Tile.TILE_SIZE, t.tY * Tile.TILE_SIZE));
                 }
             }
@@ -132,17 +132,17 @@ public class Level {
             map[tx][ty] = new FloorTile(tx, ty);
         }
         walls.clear();
-        int v = new Random().nextInt(5) + 2;
+        int v = LD51Game.rand(5) + 2;
         for (int i = 0; i != v; i++) {
-            int s = new Random().nextInt(5) + 1;
-            int x = new Random().nextInt(w);
-            int y = new Random().nextInt(h);
+            int s = LD51Game.rand(5) + 1;
+            int x = LD51Game.rand(w);
+            int y = LD51Game.rand(h);
             int dX = 1, dY = 0;
-            if (new Random().nextBoolean()) {
+            if (LD51Game.randBool()) {
                 dX = 0;
                 dY = 1;
             }
-            if (new Random().nextBoolean()) {
+            if (LD51Game.randBool()) {
                 dX *= -1;
                 dY *= -1;
             }
@@ -182,15 +182,15 @@ public class Level {
             entities.remove(e);
             if (e instanceof Mob) { //TODO should be moved inside Mob and Grunt
                 for (int i = 0; i != 50; i++) {
-                    if (new Random().nextBoolean())
+                    if (LD51Game.randBool())
                         toSpawn.add(new BloodParticle(e.getX(), e.getY(), 4, 4));
                     else
                         toSpawn.add(new BloodParticle(e.getX(), e.getY(), 2, 2));
                 }
-                if (new Random().nextInt(5) == 0) {
+                if (LD51Game.rand(5) == 0) {
                     toSpawn.add(new HealthDrop(e.getX(), e.getY()));
                 }
-                if (new Random().nextInt(5) == 0) {
+                if (LD51Game.rand(5) == 0) {
                     toSpawn.add(new CoinDrop(e.getX(), e.getY()));
                 }
             }
@@ -342,7 +342,7 @@ public class Level {
                 choices.add((Mob) e);
         }
         if (!choices.isEmpty())
-            return choices.get(new Random().nextInt(choices.size()));
+            return choices.get(LD51Game.rand(choices.size()));
         return null;
     }
 }

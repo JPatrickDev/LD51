@@ -7,8 +7,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import java.util.Random;
+
 import javax.print.DocFlavor;
 
+import me.jack.ld51.Entity.Mobs.RangedEnemy;
 import me.jack.ld51.Screen.GameOverScreen;
 import me.jack.ld51.Screen.InGameScreen;
 import me.jack.ld51.Screen.Screen;
@@ -23,7 +26,7 @@ public class LD51Game extends ApplicationAdapter {
     ShapeRenderer renderer;
 
     public static void gameover() {
-       changeScreen(new GameOverScreen(getInstance().batch, getInstance().renderer));
+        changeScreen(new GameOverScreen(getInstance().batch, getInstance().renderer));
     }
 
     @Override
@@ -31,7 +34,7 @@ public class LD51Game extends ApplicationAdapter {
         batch = new SpriteBatch();
         renderer = new ShapeRenderer();
         renderer.setAutoShapeType(true);
-        currentScreen = new InGameScreen(batch,renderer);
+        currentScreen = new InGameScreen(batch, renderer);
         instance = this;
     }
 
@@ -41,9 +44,9 @@ public class LD51Game extends ApplicationAdapter {
     public void render() {
         ScreenUtils.clear(1, 1, 1, 1);
         currentScreen.render();
-        if(newScreen != null){
-           currentScreen.dispose();
-           currentScreen = newScreen;
+        if (newScreen != null) {
+            currentScreen.dispose();
+            currentScreen = newScreen;
         }
     }
 
@@ -52,14 +55,28 @@ public class LD51Game extends ApplicationAdapter {
         currentScreen.dispose();
     }
 
-    public static LD51Game getInstance(){
+    public static LD51Game getInstance() {
         return instance;
     }
+
     Screen newScreen = null;
-    public static void changeScreen(Screen newScreen){
+
+    public static void changeScreen(Screen newScreen) {
         getInstance().newScreen = newScreen;
     }
 
 
+    public static final Random r = new Random();
 
+    public static int rand(int max) {
+        return r.nextInt(max);
+    }
+
+    public static float rand() {
+        return r.nextFloat();
+    }
+
+    public static boolean randBool() {
+        return r.nextBoolean();
+    }
 }

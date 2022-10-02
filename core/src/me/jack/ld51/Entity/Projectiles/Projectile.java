@@ -4,6 +4,7 @@ import java.util.Random;
 
 import me.jack.ld51.Entity.Entity;
 import me.jack.ld51.Entity.Projectiles.Weapons.RangedWeapon;
+import me.jack.ld51.LD51Game;
 import me.jack.ld51.level.Level;
 
 public class Projectile extends Entity {
@@ -28,8 +29,8 @@ public class Projectile extends Entity {
     }
 
     public int fuzz(int input) {
-        int i = (new Random().nextInt(15));
-        if (new Random().nextBoolean())
+        int i = LD51Game.rand(15);
+        if (LD51Game.randBool())
             i *= -1;
         return input + i;
     }

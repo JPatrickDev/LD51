@@ -10,6 +10,8 @@ import java.util.Random;
 import me.jack.ld51.Entity.Particles.Particle;
 import me.jack.ld51.Entity.Particles.Weapons.FireParticle;
 import me.jack.ld51.Entity.Particles.Weapons.FlameJetParticle;
+import me.jack.ld51.LD51Game;
+import me.jack.ld51.Screen.InGameScreen;
 import me.jack.ld51.level.Level;
 
 public abstract class Entity {
@@ -52,8 +54,8 @@ public abstract class Entity {
 
     //Slightly tweak the current velocity, so bouncing between two walls isn't deterministic
     public void randVel() {
-        float xOff = new Random().nextFloat();
-        float yOff = new Random().nextFloat();
+        float xOff = LD51Game.rand();
+        float yOff = LD51Game.rand();
         if (dX > 0) {
             dX += xOff;
         } else {

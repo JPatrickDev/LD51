@@ -6,14 +6,15 @@ import me.jack.ld51.Entity.Mobs.BaseEnemy;
 import me.jack.ld51.Entity.Mobs.Mob;
 import me.jack.ld51.Entity.Projectiles.Projectile;
 import me.jack.ld51.level.Level;
+import me.jack.ld51.ui.TexCache;
 
 public class Bullet extends RangedWeapon {
     //TODO Map for common textures for all entities to use
     long firerate = 100;
 
     public Bullet(Mob owner, long firerate) {
-        super(new Texture("projectiles/bullet.png"), owner);
-        icon = new Texture("gun.png");
+        super(TexCache.get("projectiles/bullet.png"), owner);
+        icon = TexCache.get("gun.png");
         this.firerate = firerate;
         this.name = "Handgun";
         this.description = "A basic handgun.";

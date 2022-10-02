@@ -8,14 +8,16 @@ import me.jack.ld51.Entity.Mobs.Mob;
 import me.jack.ld51.Entity.Particles.Weapons.ExplosionParticle;
 import me.jack.ld51.Entity.Particles.Weapons.FireParticle;
 import me.jack.ld51.Entity.Projectiles.Projectile;
+import me.jack.ld51.LD51Game;
 import me.jack.ld51.level.Level;
+import me.jack.ld51.ui.TexCache;
 
 public class Grenade extends RangedWeapon{
     //TODO Map for common textures for all entities to use
     long firerate = 100;
     public Grenade(Mob owner, long firerate) {
-        super(new Texture("grenade.png"),owner);
-        icon  = new Texture("grenade.png");
+        super(TexCache.get("grenade.png"),owner);
+        icon  = TexCache.get("grenade.png");
         this.firerate = firerate;
 
         this.name = "Grenade";
@@ -51,7 +53,7 @@ public class Grenade extends RangedWeapon{
     public void onRemove(Projectile source, Level parent){
         System.out.println("Grenade removed");
         for(int i= 0; i != 100; i++){
-            if(new Random().nextInt(5) == 0){
+            if(LD51Game.rand(5) == 0){
                 parent.spawnEntity(new FireParticle(source.getX(),source.getY(),3,3, ((Mob)source.getOwner())));
             }else{
                 parent.spawnEntity(new ExplosionParticle(source.getX(),source.getY(),3,3, ((Mob)source.getOwner())));

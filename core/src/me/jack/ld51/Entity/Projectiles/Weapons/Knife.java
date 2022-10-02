@@ -3,11 +3,12 @@ package me.jack.ld51.Entity.Projectiles.Weapons;
 import com.badlogic.gdx.graphics.Texture;
 
 import me.jack.ld51.Entity.Mobs.Mob;
+import me.jack.ld51.ui.TexCache;
 
 public class Knife extends MeleeWeapon{
     public Knife(Mob mob) {
         super(mob);
-        icon  = new Texture("knife.png");
+        icon  = TexCache.get("knife.png");
     }
 
     @Override

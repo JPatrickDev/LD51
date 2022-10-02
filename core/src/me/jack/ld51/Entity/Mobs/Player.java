@@ -12,8 +12,10 @@ import me.jack.ld51.Entity.Projectiles.Weapons.Grenade;
 import me.jack.ld51.Entity.Projectiles.Weapons.RangedWeapon;
 import me.jack.ld51.Entity.Projectiles.Weapons.SeekerRocket;
 import me.jack.ld51.Entity.Projectiles.Weapons.Weapon;
+import me.jack.ld51.LD51Game;
 import me.jack.ld51.Screen.InGameScreen;
 import me.jack.ld51.level.Level;
+import me.jack.ld51.ui.TexCache;
 
 public class Player extends Mob {
 
@@ -21,7 +23,7 @@ public class Player extends Mob {
 
     public int coins = 500;
     public Player(int x, int y) {
-        super(new Texture("player.png"), x, y);
+        super(TexCache.get("player.png"), x, y);
 
 
         weaponWheel[0] = new Bullet(this,100);
@@ -84,7 +86,7 @@ public class Player extends Mob {
                 currentWeapon = weaponWheel[3];
         }
 
-        if (new Random().nextInt(5) == 0) {
+        if (LD51Game.rand(5) == 0) {
             //    takeDamage(10f);
         }
     }

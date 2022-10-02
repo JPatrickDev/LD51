@@ -6,14 +6,16 @@ import java.util.Random;
 
 import me.jack.ld51.Entity.Mobs.Mob;
 import me.jack.ld51.Entity.Particles.Weapons.FlameJetParticle;
+import me.jack.ld51.LD51Game;
 import me.jack.ld51.level.Level;
+import me.jack.ld51.ui.TexCache;
 
 public class Flamethrower extends RangedWeapon {
     //TODO Map for common textures for all entities to use
 
     public Flamethrower(Mob owner) {
-        super(new Texture("projectiles/bullet.png"), owner);
-        icon = new Texture("flamethrower.png");
+        super(TexCache.get("projectiles/bullet.png"), owner);
+        icon = TexCache.get("flamethrower.png");
         this.name = "Flamethower";
         this.description = "Throws flames.";
         this.upgrades = new String[]{"COOLER:20:1000:Increased cooling for longer bursts:cooler.png",
@@ -27,7 +29,7 @@ public class Flamethrower extends RangedWeapon {
 
 
         for (int i = 0; i != 5; i++) {
-            spawnFire(parent,tx + (new Random().nextInt(100) - 50),ty + (new Random().nextInt(100) - 50));
+            spawnFire(parent,tx + (LD51Game.rand(100) - 50),ty + (LD51Game.rand(100)- 50));
         }
     }
 
