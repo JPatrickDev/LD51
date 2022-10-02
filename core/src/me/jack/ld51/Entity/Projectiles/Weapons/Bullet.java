@@ -20,6 +20,7 @@ public class Bullet extends RangedWeapon {
         this.upgrades = new String[]{"FIRERATE:5:100:Increase the rate of fire:rapidfire.png",
                 "DAMAGE:10:200:Deal more damage with bigger bullets:largerbullet.png",
                 "MULTISHOT:15:500:Shoot three bullets at once:tripleshot.png"};
+        unlockedAt = 0;
     }
 
 

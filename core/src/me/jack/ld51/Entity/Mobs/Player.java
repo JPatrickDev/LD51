@@ -68,16 +68,20 @@ public class Player extends Mob {
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_1)){
-            currentWeapon = weaponWheel[0];
+            if(weaponWheel[0] != null && weaponWheel[0].unlockedAt <= parent.currentRound)
+               currentWeapon = weaponWheel[0];
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_2)){
-            currentWeapon = weaponWheel[1];
+            if(weaponWheel[1] != null && weaponWheel[1].unlockedAt <= parent.currentRound)
+             currentWeapon = weaponWheel[1];
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_3)){
-            currentWeapon = weaponWheel[2];
+            if(weaponWheel[2] != null && weaponWheel[2].unlockedAt <= parent.currentRound)
+             currentWeapon = weaponWheel[2];
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_4)){
-            currentWeapon = weaponWheel[3];
+            if(weaponWheel[3] != null && weaponWheel[3].unlockedAt <= parent.currentRound)
+                currentWeapon = weaponWheel[3];
         }
 
         if (new Random().nextInt(5) == 0) {

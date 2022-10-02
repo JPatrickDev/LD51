@@ -93,34 +93,32 @@ public class HUD {
             renderer.set(ShapeRenderer.ShapeType.Filled);
             float num = w[i].usage;
             if (num >= 0) {
-                float f = num/0.25f ;
-                if(f > 1)
+                float f = num / 0.25f;
+                if (f > 1)
                     f = 1;
-                renderer.rectLine(x + (i * 40), y + 32, x + (i * 40) + 32*f, y + 32, 3);
+                renderer.rectLine(x + (i * 40), y + 32, x + (i * 40) + 32 * f, y + 32, 3);
             }
-            if (num >= 0.25){
+            if (num >= 0.25) {
                 float factor = num - 0.25f;
-                float f = factor/0.25f ;
-                if(f > 1)
+                float f = factor / 0.25f;
+                if (f > 1)
                     f = 1;
-                renderer.rectLine(x + (i * 40) + 32, y + (32-32*f), x + (i * 40) + 32, y + 32, 3);
+                renderer.rectLine(x + (i * 40) + 32, y + (32 - 32 * f), x + (i * 40) + 32, y + 32, 3);
             }
             if (num >= 0.5) {
                 float factor = num - 0.5f;
-                float f = factor/0.25f ;
-                if(f > 1)
+                float f = factor / 0.25f;
+                if (f > 1)
                     f = 1;
-                renderer.rectLine(x + (i * 40) + (32 - (32*f)), y, x + (i * 40) + 32, y, 3);
+                renderer.rectLine(x + (i * 40) + (32 - (32 * f)), y, x + (i * 40) + 32, y, 3);
             }
-            if (num >= 0.75){
+            if (num >= 0.75) {
                 float factor = num - 0.75f;
-                float f = factor/0.25f ;
-                if(f > 1)
+                float f = factor / 0.25f;
+                if (f > 1)
                     f = 1;
-                renderer.rectLine(x + (i * 40), y, x + (i * 40), y + (32*f), 3);
+                renderer.rectLine(x + (i * 40), y, x + (i * 40), y + (32 * f), 3);
             }
-
-
 
 
             renderer.set(ShapeRenderer.ShapeType.Line);
@@ -141,6 +139,11 @@ public class HUD {
         for (int i = 0; i != w.length; i++) {
             if (w[i] != null) {
                 batch.draw(w[i].icon, x + i * 40, y);
+                if (w[i].unlockedAt > level.currentRound) {
+                    batch.draw(UpgradesDialog.padlock, x + i * 40, y);
+                    font.setColor(Color.WHITE);
+                    font.draw(batch, w[i].unlockedAt + "", x + i * 40 + 10, y + 16);
+                }
             }
         }
         batch.draw(upgradesButton, x + 2, y - 34);

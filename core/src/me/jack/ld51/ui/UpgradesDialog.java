@@ -55,10 +55,9 @@ public class UpgradesDialog {
             if (currentPurchaseButtons == null) {
                 return;
             }
-            HashMap<Rectangle,Object[]> copy = new HashMap<>(currentPurchaseButtons);
+            HashMap<Rectangle, Object[]> copy = new HashMap<>(currentPurchaseButtons);
             for (Rectangle r : copy.keySet()) {
                 if (r.contains(InGameScreen.getMX(), InGameScreen.getMY())) {
-                    System.out.println("Applying " + currentPurchaseButtons.get(r)[1]);
                     ((Weapon) currentPurchaseButtons.get(r)[0]).appliedUpgrades.add((String) currentPurchaseButtons.get(r)[1]);
                     System.out.println(((Weapon) currentPurchaseButtons.get(r)[0]).appliedUpgrades);
                     currentPurchaseButtons.remove(r);
@@ -112,6 +111,10 @@ public class UpgradesDialog {
                 selected = w[i];
             }
             batch.draw(w[i].icon, x + i * 150, y, 64, 64);
+            if (w[i] != null && w[i].unlockedAt > parent.currentRound) {
+                batch.draw(padlock, x + i * 150, y, 64, 64);
+                HUD.font.draw(batch, w[i].unlockedAt + "", x + i * 150 + 25, y + 16);
+            }
         }
 
         HUD.font.draw(batch, selected.name, x + currentSelection * 150, y);

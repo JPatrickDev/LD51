@@ -19,6 +19,7 @@ public class Flamethrower extends RangedWeapon {
         this.upgrades = new String[]{"COOLER:20:1000:Increased cooling for longer bursts:cooler.png",
                 "SPREAD:25:200:Shoot in a wider arc:arc.png",
                 "NAPALM:15:500:Flames hang around for longer:napalm.png"};
+        unlockedAt = 5;
     }
 
     @Override

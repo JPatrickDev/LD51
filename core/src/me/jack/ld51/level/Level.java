@@ -45,7 +45,7 @@ public class Level {
     Player player;
 
     public long roundTimer = System.currentTimeMillis();
-    public int currentRound = 55;
+    public int currentRound = 1;
 
     List<StairTile> stairs = new ArrayList<>();
 

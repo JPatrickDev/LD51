@@ -22,6 +22,7 @@ public class Grenade extends RangedWeapon{
         this.description = "Explodes after a few seconds.";
         this.upgrades = new String[]{"RADIUS:10:300:Increased blast radius:radius.png",
                 "FIRESPLASH:18:600:Releases fire on detonation:firesplash.png"};
+        unlockedAt = 3;
     }
 
 

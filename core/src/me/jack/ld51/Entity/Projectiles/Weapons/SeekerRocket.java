@@ -21,6 +21,7 @@ public class SeekerRocket extends RangedWeapon{
         this.upgrades = new String[]{"DAMAGE:20:1000:Increased blast radius:radius.png",
                 "MIRV:25:200:Split in to three sub rockets after launch:mirv.png",
                 "FIRERATE:15:500:Increased rate of fire:rapidfire.png"};
+        unlockedAt = 10;
     }
 
     @Override
