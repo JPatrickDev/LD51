@@ -20,9 +20,9 @@ Tracking Rocket
 Upgrades for weapons
     - Mobs drop coins that can be spent on upgrades
     - Upgrades dialog
-        - Row of 4 Weapons at top, current selected highlighted
-        - Underneath, show current upgrades and remaining to be unlocked
-            - Combo of having the coins and being a high enough round
+        - Row of 4 Weapons at top, current selected highlighted/
+        - Underneath, show current upgrades and remaining to be unlocked/
+            - Combo of having the coins and being a high enough round/
 
     - Upgrades:
         - Gun
@@ -30,12 +30,33 @@ Upgrades for weapons
             - Bigger bullets/
             - Multiple bullets per shot/
         - Grenade
-            - Fire inclusion as upgrade
-            - Larger blast radius
+            - Fire inclusion as upgrade/
+            - Larger blast radius/
         - Flamethrower
-            - Ammo lasts longer (Should only be able to use for a few seconds at a time without upgrade)
+            - Ammo lasts longer (Should only be able to use for a few seconds at a time without upgrade)/
 
 Second enemy that has ranged attack/
+
+
+Improved AI
+    - Pathfinding/
+
+- Balance cost/unlocks
+
+Tutorial
+
+Drops move towards the player
+
+Wall clipping
+
+Improved HUD
+
+Finish main menu
+
+Finish game over screen
+    - Display round reached
+
+
 
 
 

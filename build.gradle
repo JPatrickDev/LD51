@@ -74,6 +74,6 @@ project(":core") {
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
-        
+        implementation "com.github.xaguzman:pathfinding:0.2.6"
     }
 }

@@ -4,11 +4,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import org.xguzm.pathfinding.grid.GridCell;
+
 import java.util.HashMap;
 
 import me.jack.ld51.level.Level;
 
-public abstract class Tile {
+public abstract class Tile extends GridCell {
 
     private boolean solid;
     public static HashMap<String,Texture> textures = new HashMap<>();
@@ -17,6 +19,7 @@ public abstract class Tile {
     public int tX,tY;
 
     public Tile(int tX,int tY){
+        super(tX,tY);
         this.tX = tX;
         this.tY = tY;
     }

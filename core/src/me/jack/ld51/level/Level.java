@@ -4,6 +4,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
+import org.xguzm.pathfinding.grid.GridCell;
+import org.xguzm.pathfinding.grid.NavigationGrid;
+import org.xguzm.pathfinding.grid.finders.AStarGridFinder;
+
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -50,6 +54,10 @@ public class Level {
     public long pausedAt = -1;
     List<StairTile> stairs = new ArrayList<>();
 
+
+    public NavigationGrid<GridCell> pathfindingGrid;
+    public AStarGridFinder<GridCell> finder = new AStarGridFinder(GridCell.class);
+
     public Level() {
         w = 20;
         h = 15;
@@ -74,7 +82,7 @@ public class Level {
         }
         player = new Player(300, 300);
         entities.add(player);
-
+        pathfindingGrid = new NavigationGrid<GridCell>(map);
         //  newRoundSpawnMobs();
     }
 
@@ -256,8 +264,11 @@ public class Level {
                     }
                 } else {
                     if ((!(target instanceof Projectile) || ((Projectile) target).getOwner() != e) && !(e instanceof Particle)) {
-                        target.setdX(0);
-                        target.setdY(0);
+                        if ((e instanceof RangedEnemy && target instanceof GruntEnemy) || (target instanceof RangedEnemy && e instanceof RangedEnemy)) {
+                        } else {
+                            target.setdX(0);
+                            target.setdY(0);
+                        }
                     }
                 }
                 if (target instanceof Player && e instanceof DropParticle) {
@@ -329,6 +340,10 @@ public class Level {
 
     public static int dist(Entity o, Entity t) {
         return (int) Point2D.distance(o.getX(), o.getY(), t.getX(), t.getY());
+    }
+
+    public static int dist(Entity e, Tile t) {
+        return (int) Point2D.distance(e.getX(), e.getY(), t.getX() * Tile.TILE_SIZE, t.getY() * Tile.TILE_SIZE);
     }
 
     public Mob findMobInRange(Player player, float range) {

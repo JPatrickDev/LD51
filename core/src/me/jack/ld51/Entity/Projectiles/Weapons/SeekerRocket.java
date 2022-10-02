@@ -20,10 +20,9 @@ public class SeekerRocket extends RangedWeapon{
         icon  = TexCache.get("seekerrocket.png");
         this.name = "Seeking Missile";
         this.description = "Locks on to a nearby target.";
-        this.upgrades = new String[]{"DAMAGE:20:1000:Increased blast radius:radius.png",
-                "MIRV:25:200:Split in to three sub rockets after launch:mirv.png",
-                "FIRERATE:15:500:Increased rate of fire:rapidfire.png"};
-        unlockedAt = 10;
+        this.upgrades = new String[]{"DAMAGE:1:1:Increased blast radius:radius.png",
+                "FIRERATE:1:1:Increased rate of fire:rapidfire.png"};
+        unlockedAt = 1;
     }
 
     @Override
@@ -38,7 +37,11 @@ public class SeekerRocket extends RangedWeapon{
 
     @Override
     public long fireRate(){
-        return 50;
+        if(appliedUpgrades.contains("FIRERATE")){
+            return 100;
+        }else {
+            return 250;
+        }
     }
 
     @Override
@@ -59,12 +62,15 @@ public class SeekerRocket extends RangedWeapon{
 
     @Override
     public void onRemove(Projectile source, Level parent){
-        System.out.println("Grenade removed");
-        for(int i= 0; i != 100; i++){
+        int k = 50;
+        if(appliedUpgrades.contains("DAMAGE")){
+            k = 100;
+        }
+        for(int i= 0; i != k; i++){
             if(LD51Game.rand(5) == 0){
                 parent.spawnEntity(new FireParticle(source.getX(),source.getY(),3,3, ((Mob)source.getOwner())));
             }else{
-                parent.spawnEntity(new ExplosionParticle(source.getX(),source.getY(),3,3, ((Mob)source.getOwner())));
+                parent.spawnEntity(new ExplosionParticle(source.getX() + (LD51Game.rand(50)-25),source.getY()+ (LD51Game.rand(50)-25),3,3, ((Mob)source.getOwner())));
             }
 
         }
