@@ -12,6 +12,20 @@ public abstract class DropParticle extends Particle {
         lifespan = 10000;
     }
 
+    @Override
+    public void update(Level parent) {
+        super.update(parent);
+        if(Level.dist(parent.getPlayer(),this) < 64){
+            float xSpeed = (parent.getPlayer().getX() - x);
+            float ySpeed = (parent.getPlayer().getY() - y);
+
+            float factor = (float) (2 / Math.sqrt(xSpeed * xSpeed + ySpeed * ySpeed));
+            xSpeed *= factor;
+            ySpeed *= factor;
+            dX = xSpeed;
+            dY = ySpeed;
+        }
+    }
 
     public abstract void apply(Level parent, Mob pickedUpBy);
 }

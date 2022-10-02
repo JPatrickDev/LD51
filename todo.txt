@@ -45,7 +45,7 @@ Improved AI
 
 Tutorial
 
-Drops move towards the player
+Drops move towards the player/
 
 Wall clipping
 
@@ -56,7 +56,7 @@ Finish main menu
 Finish game over screen
     - Display round reached
 
-
+Point projectiles in direction of travel
 
 
 
