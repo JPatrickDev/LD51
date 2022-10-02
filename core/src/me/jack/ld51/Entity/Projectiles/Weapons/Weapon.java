@@ -14,6 +14,10 @@ public abstract class Weapon {
 
     public String name,description;
 
+    public float usageRate = 0.2f;
+    public float usage = 1f;
+    public float regenRate = 0.05f;
+
     public int unlockedAt;
 
 

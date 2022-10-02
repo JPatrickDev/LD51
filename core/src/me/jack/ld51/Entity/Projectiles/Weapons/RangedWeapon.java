@@ -23,10 +23,12 @@ public abstract class RangedWeapon extends Weapon {
 
     public void use(Level parent, int tx, int ty) {
         System.out.println(lastUse);
-        if (System.currentTimeMillis() - lastUse > fireRate()) {
+        if (System.currentTimeMillis() - lastUse > fireRate() & usage > 0) {
             parent.spawnEntity(new Projectile(this.owner, this, tx, ty));
             lastUse = System.currentTimeMillis();
+            usage -= usageRate;
         }
+
     }
 
     public void onRemove(Projectile source,Level parent){

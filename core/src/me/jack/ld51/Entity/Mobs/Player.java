@@ -35,6 +35,14 @@ public class Player extends Mob {
     @Override
     public void update(Level parent) {
         super.update(parent);
+        for(Weapon w : weaponWheel){
+            if(w != null){
+                w.usage += w.regenRate;
+                if(w.usage > 1f){
+                    w.usage = 1f;
+                }
+            }
+        }
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             dX += 2;
         } else if (Gdx.input.isKeyPressed(Input.Keys.A)) {

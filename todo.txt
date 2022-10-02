@@ -26,16 +26,16 @@ Upgrades for weapons
 
     - Upgrades:
         - Gun
-            - Faster fire rate
-            - Bigger bullets
-            - Multiple bullets per shot
+            - Faster fire rate/
+            - Bigger bullets/
+            - Multiple bullets per shot/
         - Grenade
             - Fire inclusion as upgrade
             - Larger blast radius
         - Flamethrower
             - Ammo lasts longer (Should only be able to use for a few seconds at a time without upgrade)
 
-Second enemy that has ranged attack
+Second enemy that has ranged attack/
 
 
 
@@ -52,9 +52,9 @@ Drops
 
 
 HUD at bottom of screen
-    - 10 second timer (Circular?). Score is how many 10 second rounds survived?
-    - Current Weapon
-    - Health
+    - 10 second timer (Circular?). Score is how many 10 second rounds survived?/
+    - Current Weapon/
+    - Health/
 
 Every 10 seconds one of these happens:
     - New round of mobs spawn

@@ -85,15 +85,50 @@ public class HUD {
         Weapon[] w = p.weaponWheel;
         renderer.setColor(Color.WHITE);
         for (int i = 0; i != w.length; i++) {
-            renderer.rect(x + (i * 34), y, 32, 32);
+            renderer.rect(x + (i * 40), y, 32, 32);
         }
         renderer.set(ShapeRenderer.ShapeType.Line);
         renderer.setColor(Color.BLACK);
         for (int i = 0; i != w.length; i++) {
+            renderer.set(ShapeRenderer.ShapeType.Filled);
+            float num = w[i].usage;
+            if (num >= 0) {
+                float f = num/0.25f ;
+                if(f > 1)
+                    f = 1;
+                renderer.rectLine(x + (i * 40), y + 32, x + (i * 40) + 32*f, y + 32, 3);
+            }
+            if (num >= 0.25){
+                float factor = num - 0.25f;
+                float f = factor/0.25f ;
+                if(f > 1)
+                    f = 1;
+                renderer.rectLine(x + (i * 40) + 32, y + (32-32*f), x + (i * 40) + 32, y + 32, 3);
+            }
+            if (num >= 0.5) {
+                float factor = num - 0.5f;
+                float f = factor/0.25f ;
+                if(f > 1)
+                    f = 1;
+                renderer.rectLine(x + (i * 40) + (32 - (32*f)), y, x + (i * 40) + 32, y, 3);
+            }
+            if (num >= 0.75){
+                float factor = num - 0.75f;
+                float f = factor/0.25f ;
+                if(f > 1)
+                    f = 1;
+                renderer.rectLine(x + (i * 40), y, x + (i * 40), y + (32*f), 3);
+            }
+
+
+
+
+            renderer.set(ShapeRenderer.ShapeType.Line);
+
             if (w[i] == p.currentWeapon) {
                 renderer.setColor(Color.RED);
             }
-            renderer.rect(x + (i * 34), y, 32, 32);
+            renderer.rect(x + (i * 40), y, 32, 32);
             renderer.setColor(Color.BLACK);
         }
         renderer.set(ShapeRenderer.ShapeType.Filled);
@@ -105,7 +140,7 @@ public class HUD {
 
         for (int i = 0; i != w.length; i++) {
             if (w[i] != null) {
-                batch.draw(w[i].icon, x + i * 32, y);
+                batch.draw(w[i].icon, x + i * 40, y);
             }
         }
         batch.draw(upgradesButton, x + 2, y - 34);
