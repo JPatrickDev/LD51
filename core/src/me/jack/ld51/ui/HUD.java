@@ -18,7 +18,7 @@ public class HUD {
 
     private Level level;
     public static BitmapFont font = new BitmapFont();
-    float wheelRadius = 45f;
+    public static final float wheelRadius = 45f;
     public Texture upgradesButton = new Texture("upgrade.png");
     InGameScreen igs;
 
@@ -29,21 +29,21 @@ public class HUD {
 
 
     public void drawTextures(SpriteBatch batch) {
-        drawHealthWheelTextures(batch, 0, 50);
-        drawRoundBarTextures(batch, 100, 50);
-        drawWeaponWheelTextures(batch, 230, 50);
+        drawHealthWheelTextures(batch, 0, (int) -wheelRadius);
+        drawRoundBarTextures(batch, 100, (int) -wheelRadius);
+        drawWeaponWheelTextures(batch, 230, (int) -wheelRadius);
 
         if (Gdx.input.isButtonJustPressed(0)) {
-            if (new Rectangle(230 + 2, 50 - 34, 128, 32).contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY())) {
+            if (new Rectangle(230 + 2, (int) -wheelRadius - 34, 128, 32).contains(InGameScreen.getMX(), InGameScreen.getMY())) {
                 igs.dialog = new UpgradesDialog(level, igs);
             }
         }
     }
 
     public void drawShapes(ShapeRenderer renderer) {
-        drawHealthWheelShapes(renderer, 0, 50);
-        drawRoundBarShapes(renderer, 100, 50);
-        drawWeaponWheelShapes(renderer, 230, 50);
+        drawHealthWheelShapes(renderer, 0, (int) -wheelRadius);
+        drawRoundBarShapes(renderer, 100, (int) -wheelRadius);
+        drawWeaponWheelShapes(renderer, 230, (int) -wheelRadius);
     }
 
     public void drawHealthWheelShapes(ShapeRenderer renderer, int x, int y) {

@@ -44,12 +44,12 @@ public class UpgradesDialog {
 
         if (Gdx.input.isButtonJustPressed(0)) {
             for (Integer i : weaponSelections.keySet()) {
-                if (weaponSelections.get(i).contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY())) {
+                if (weaponSelections.get(i).contains(InGameScreen.getMX(), InGameScreen.getMY())) {
                     currentSelection = i;
                     currentPurchaseButtons = null;
                 }
             }
-            if (new Rectangle(550, 415, 32, 32).contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY())) {
+            if (new Rectangle(550, 415, 32, 32).contains(InGameScreen.getMX(), InGameScreen.getMY())) {
                 igs.dialog = null;
             }
             if (currentPurchaseButtons == null) {
@@ -57,7 +57,7 @@ public class UpgradesDialog {
             }
             HashMap<Rectangle,Object[]> copy = new HashMap<>(currentPurchaseButtons);
             for (Rectangle r : copy.keySet()) {
-                if (r.contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY())) {
+                if (r.contains(InGameScreen.getMX(), InGameScreen.getMY())) {
                     System.out.println("Applying " + currentPurchaseButtons.get(r)[1]);
                     ((Weapon) currentPurchaseButtons.get(r)[0]).appliedUpgrades.add((String) currentPurchaseButtons.get(r)[1]);
                     System.out.println(((Weapon) currentPurchaseButtons.get(r)[0]).appliedUpgrades);

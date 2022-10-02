@@ -2,6 +2,7 @@ package me.jack.ld51.Entity.Projectiles.Weapons;
 
 import com.badlogic.gdx.graphics.Texture;
 
+import me.jack.ld51.Entity.Mobs.BaseEnemy;
 import me.jack.ld51.Entity.Mobs.Mob;
 import me.jack.ld51.Entity.Projectiles.Projectile;
 import me.jack.ld51.level.Level;
@@ -24,6 +25,9 @@ public class Bullet extends RangedWeapon {
 
     @Override
     public long fireRate() {
+        if(owner instanceof BaseEnemy){
+            return 2000;
+        }
         if (appliedUpgrades.contains("FIRERATE")) {
             return 150;
         } else {

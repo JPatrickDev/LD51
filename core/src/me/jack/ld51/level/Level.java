@@ -12,9 +12,11 @@ import java.util.List;
 import java.util.Random;
 
 import me.jack.ld51.Entity.Entity;
-import me.jack.ld51.Entity.Mobs.GruntMob;
+import me.jack.ld51.Entity.Mobs.BaseEnemy;
+import me.jack.ld51.Entity.Mobs.GruntEnemy;
 import me.jack.ld51.Entity.Mobs.Mob;
 import me.jack.ld51.Entity.Mobs.Player;
+import me.jack.ld51.Entity.Mobs.RangedEnemy;
 import me.jack.ld51.Entity.Particles.Decorative.BloodParticle;
 import me.jack.ld51.Entity.Particles.Decorative.DecorativeParticle;
 import me.jack.ld51.Entity.Particles.Drops.CoinDrop;
@@ -109,7 +111,10 @@ public class Level {
     public void newRoundSpawnMobs() {
         for (StairTile t : stairs) {
             for (int i = 0; i <= new Random().nextInt(5) + 1; i++) {
-                t.toSpawn.add(new GruntMob(t.tX * Tile.TILE_SIZE, t.tY * Tile.TILE_SIZE));
+                t.toSpawn.add(new GruntEnemy(t.tX * Tile.TILE_SIZE, t.tY * Tile.TILE_SIZE));
+                if(new Random().nextInt(5) == 0){
+                    t.toSpawn.add(new RangedEnemy(t.tX * Tile.TILE_SIZE, t.tY * Tile.TILE_SIZE));
+                }
             }
         }
     }
@@ -177,12 +182,12 @@ public class Level {
             if (e == target || e instanceof Projectile || e instanceof DecorativeParticle)
                 continue;
             Rectangle r2 = new Rectangle((int) e.getX(), (int) e.getY(), e.getW(), e.getH());
-            if (e instanceof GruntMob && target instanceof GruntMob) {
+            if (e instanceof BaseEnemy && target instanceof BaseEnemy) {
                 r2 = new Rectangle((int) e.getX() + e.getW() / 2, (int) e.getY() + e.getH() / 2, e.getW() / 2, e.getH() / 2);
             }
             if (r2.intersects(r)) {
                 if (e instanceof Mob && target instanceof Projectile && ((Projectile) target).getOwner() != e) {
-                    if (!(((Projectile) target).getOwner() instanceof GruntMob && e instanceof GruntMob)) {
+                    if (!(((Projectile) target).getOwner() instanceof BaseEnemy && e instanceof BaseEnemy)) {
                         ((Mob) e).takeDamage(((Projectile) target).toFire.damage());
                         removeEntity(target);
                     }
@@ -196,7 +201,7 @@ public class Level {
                     ((DropParticle) e).apply(this, (Mob) target);
                     removeEntity(e);
                 }
-                if (target instanceof GruntMob && e instanceof WeaponParticle) {
+                if (target instanceof BaseEnemy && e instanceof WeaponParticle) {
                     ((Mob) target).takeDamage(((WeaponParticle) e).getDamage());
                     removeEntity(e);
                 }

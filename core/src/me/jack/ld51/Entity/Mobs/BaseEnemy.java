@@ -7,12 +7,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import me.jack.ld51.Entity.Projectiles.Weapons.Knife;
 import me.jack.ld51.level.Level;
 
-public class GruntMob extends Mob {
+public abstract class BaseEnemy extends Mob {
 
 
     int weaponRange = 32;
     static Texture texture = new Texture("grunt.png");
-    public GruntMob(int x, int y) {
+    public BaseEnemy(Texture texture,int x, int y) {
         super(texture, x, y);
         currentWeapon = new Knife(this);
         //     health = 10;

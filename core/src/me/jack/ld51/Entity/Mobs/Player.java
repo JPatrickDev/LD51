@@ -12,6 +12,7 @@ import me.jack.ld51.Entity.Projectiles.Weapons.Grenade;
 import me.jack.ld51.Entity.Projectiles.Weapons.RangedWeapon;
 import me.jack.ld51.Entity.Projectiles.Weapons.SeekerRocket;
 import me.jack.ld51.Entity.Projectiles.Weapons.Weapon;
+import me.jack.ld51.Screen.InGameScreen;
 import me.jack.ld51.level.Level;
 
 public class Player extends Mob {
@@ -48,7 +49,7 @@ public class Player extends Mob {
 
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
             if (this.currentWeapon instanceof RangedWeapon && !(this.currentWeapon instanceof SeekerRocket)) {
-                ((RangedWeapon) this.currentWeapon).use(parent, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+                ((RangedWeapon) this.currentWeapon).use(parent, InGameScreen.getMX(),InGameScreen.getMY());
             } else {
                 Mob m = parent.findMobInRange(this, this.currentWeapon.range());
                 if (m != null)

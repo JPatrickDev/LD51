@@ -59,4 +59,7 @@ public class LD51Game extends ApplicationAdapter {
     public static void changeScreen(Screen newScreen){
         getInstance().newScreen = newScreen;
     }
+
+
+
 }

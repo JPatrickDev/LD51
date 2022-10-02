@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import me.jack.ld51.level.Level;
@@ -35,7 +36,11 @@ public class InGameScreen extends Screen{
             i = 0;
         }
         i++;
-        ScreenUtils.clear(1, 0, 0, 1);
+        ScreenUtils.clear(0.5f, 0.5f,0.5f, 1);
+        Matrix4 matrix4 = new Matrix4();
+        matrix4.setToTranslation(0,HUD.wheelRadius*2,0);
+        batch.setTransformMatrix(matrix4);
+        renderer.setTransformMatrix(matrix4);
         batch.begin();
         level.renderTextures(batch);
         batch.end();
@@ -44,6 +49,8 @@ public class InGameScreen extends Screen{
         hud.drawShapes(renderer);
         renderer.end();
         batch.begin();
+        batch.setTransformMatrix(matrix4);
+        renderer.setTransformMatrix(matrix4);
         level.getPlayer().renderTextures(batch);
         hud.drawTextures(batch);
         batch.end();
@@ -62,4 +69,16 @@ public class InGameScreen extends Screen{
     public void dispose(){
         //TODO level and hud dispose
     }
+
+
+    public static int getMX(){
+        return Gdx.input.getX();
+    }
+
+    public static int getMY(){
+        return (int) ((Gdx.graphics.getHeight() - Gdx.input.getY()) - HUD.wheelRadius*2);
+    }
+
 }
+
+
