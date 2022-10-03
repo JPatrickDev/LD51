@@ -22,7 +22,7 @@ public class SeekerRocket extends RangedWeapon{
         this.description = "Locks on to a nearby target.";
         this.upgrades = new String[]{"DAMAGE:1:1:Increased blast radius:radius.png",
                 "FIRERATE:1:1:Increased rate of fire:rapidfire.png"};
-        unlockedAt = 1;
+        unlockedAt = 10;
         regenRate = 0.02f;
         usageRate = 0.4f;
     }

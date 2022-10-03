@@ -78,6 +78,13 @@ public class InGameScreen extends Screen{
         return (int) ((Gdx.graphics.getHeight() - Gdx.input.getY()) - HUD.wheelRadius*2);
     }
 
+    public void mouseWheel(float amountY) {
+        if(amountY > 0){
+            level.getPlayer().weaponUp(level);
+        }else{
+            level.getPlayer().weaponDown(level);
+        }
+    }
 }
 
 

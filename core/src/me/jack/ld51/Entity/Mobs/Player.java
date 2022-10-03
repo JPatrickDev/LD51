@@ -31,6 +31,8 @@ public class Player extends Mob {
         coins -= c;
     }
 
+    int weaponPos = 0;
+
     public Player(int x, int y) {
         super(TexCache.get("player.png"), x, y);
 
@@ -40,6 +42,7 @@ public class Player extends Mob {
         weaponWheel[2] = new Flamethrower(this);
         weaponWheel[3] = new SeekerRocket(this);
         currentWeapon = weaponWheel[0];
+        weaponPos = 0;
         setStartHealth(150f);
     }
 
@@ -80,25 +83,57 @@ public class Player extends Mob {
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
-            if (weaponWheel[0] != null && weaponWheel[0].unlockedAt <= parent.currentRound)
+            if (weaponWheel[0] != null && weaponWheel[0].unlockedAt <= parent.currentRound) {
                 currentWeapon = weaponWheel[0];
+                weaponPos = 0;
+            }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
-            if (weaponWheel[1] != null && weaponWheel[1].unlockedAt <= parent.currentRound)
+            if (weaponWheel[1] != null && weaponWheel[1].unlockedAt <= parent.currentRound) {
                 currentWeapon = weaponWheel[1];
+                weaponPos = 1;
+            }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.NUM_3)) {
-            if (weaponWheel[2] != null && weaponWheel[2].unlockedAt <= parent.currentRound)
+            if (weaponWheel[2] != null && weaponWheel[2].unlockedAt <= parent.currentRound) {
                 currentWeapon = weaponWheel[2];
+                weaponPos = 2;
+            }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.NUM_4)) {
-            if (weaponWheel[3] != null && weaponWheel[3].unlockedAt <= parent.currentRound)
+            if (weaponWheel[3] != null && weaponWheel[3].unlockedAt <= parent.currentRound) {
                 currentWeapon = weaponWheel[3];
+                weaponPos = 3;
+            }
         }
 
-        if (LD51Game.rand(5) == 0) {
-            //    takeDamage(10f);
+    }
+
+    public void weaponUp(Level parent) {
+        if (weaponPos + 1 >= weaponWheel.length) {
+            weaponPos = 0;
+            currentWeapon = weaponWheel[weaponPos];
+        }
+        if (weaponPos + 1 < weaponWheel.length && weaponWheel[weaponPos + 1].unlockedAt <= parent.currentRound) {
+            weaponPos += 1;
+            currentWeapon = weaponWheel[weaponPos];
         }
     }
 
+    public void weaponDown(Level parent) {
+        if (weaponPos - 1 < 0) {
+            if (weaponWheel[weaponWheel.length - 1].unlockedAt <= parent.currentRound) {
+                weaponPos = weaponWheel.length - 1;
+                currentWeapon = weaponWheel[weaponPos];
+            }
+        } else {
+            if (weaponPos - 1 < weaponWheel.length) {
+                if (weaponWheel[weaponPos - 1].unlockedAt <= parent.currentRound) {
+                    weaponPos -= 1;
+                    currentWeapon = weaponWheel[weaponPos];
+                }
+            }
+        }
+
+    }
 }

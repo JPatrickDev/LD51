@@ -166,8 +166,9 @@ public class HUD {
                 batch.draw(w[i].icon, x + i * 70, y,64,64);
                 if (w[i].unlockedAt > level.currentRound) {
                     batch.draw(UpgradesDialog.padlock, x + i * 70 + 16, y + 16);
+                    font.setColor(Color.RED);
+                    font.draw(batch, w[i].unlockedAt + "", x + i * 70 + 25, y + 16);
                     font.setColor(Color.WHITE);
-                    font.draw(batch, w[i].unlockedAt + "", x + i * 40 + 10, y + 16);
                 }
             }
         }
