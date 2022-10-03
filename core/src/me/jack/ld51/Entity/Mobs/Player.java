@@ -21,7 +21,7 @@ public class Player extends Mob {
 
     public Weapon[] weaponWheel = new Weapon[4];
 
-    public int coins = 500;
+    public int coins = 10;
 
     public boolean canBuy(int c) {
         return c <= coins;

@@ -18,9 +18,9 @@ public class Bullet extends RangedWeapon {
         this.firerate = firerate;
         this.name = "Handgun";
         this.description = "A basic handgun.";
-        this.upgrades = new String[]{"FIRERATE:5:100:Increase the rate of fire:rapidfire.png",
-                "DAMAGE:10:200:Deal more damage with bigger bullets:largerbullet.png",
-                "MULTISHOT:15:500:Shoot three bullets at once:tripleshot.png"};
+        this.upgrades = new String[]{"FIRERATE:3:15:Increase the rate of fire:rapidfire.png",
+                "DAMAGE:5:30:Deal more damage with bigger bullets:largerbullet.png",
+                "MULTISHOT:12:50:Shoot three bullets at once:tripleshot.png"};
         unlockedAt = 0;
         usageRate=0.1f;
         regenRate=0.01f;
@@ -42,7 +42,6 @@ public class Bullet extends RangedWeapon {
     @Override
     public void use(Level parent, int tx, int ty) {
         if (appliedUpgrades.contains("MULTISHOT")) {
-            System.out.println(lastUse);
             if (System.currentTimeMillis() - lastUse > fireRate() & usage > 0.2) {
                 parent.spawnEntity(new Projectile(this.owner, this, tx + 15, ty));
                 parent.spawnEntity(new Projectile(this.owner, this, tx, ty));

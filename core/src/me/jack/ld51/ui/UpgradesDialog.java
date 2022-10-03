@@ -15,7 +15,7 @@ import me.jack.ld51.Entity.Projectiles.Weapons.Weapon;
 import me.jack.ld51.Screen.InGameScreen;
 import me.jack.ld51.level.Level;
 
-public class UpgradesDialog extends Dialog{
+public class UpgradesDialog extends Dialog {
     Level parent;
 
     public static Texture coin = new Texture("coin.png");
@@ -120,8 +120,8 @@ public class UpgradesDialog extends Dialog{
                 HUD.font.draw(batch, w[i].unlockedAt + "", x + i * 150 + 25, y + 16);
             }
         }
-
-        HUD.font.draw(batch, selected.name, x + currentSelection * 150, y);
+        layout.setText(HUD.font, selected.name);
+        HUD.font.draw(batch, selected.name, x + currentSelection * 150 + ((32 - layout.width / 2)), y - 5);
         drawUpgradesListTextures(selected, x, (50 + (y - 50) / 2) - (70 * 3) / 2, batch);
     }
 
@@ -149,7 +149,7 @@ public class UpgradesDialog extends Dialog{
                 } else if (weapon.appliedUpgrades.contains(data[0])) {
 
                 } else {
-                    currentPurchaseButtons.put(new Rectangle(440, y + (i * 70) + 20, purchaseButton.getWidth(), purchaseButton.getHeight()), new Object[]{weapon, data[0],data[2]});
+                    currentPurchaseButtons.put(new Rectangle(440, y + (i * 70) + 20, purchaseButton.getWidth(), purchaseButton.getHeight()), new Object[]{weapon, data[0], data[2]});
                     batch.draw(purchaseButton, 480, y + (i * 70) + 20);
                 }
                 i++;
@@ -175,6 +175,9 @@ public class UpgradesDialog extends Dialog{
 
             } else {
                 batch.draw(purchaseButton, 440, y + (i * 70) + 20);
+                HUD.font.setColor(Color.BLACK);
+                HUD.font.draw(batch, "(" + data[2] + ")", 530, y + (i * 70) + 32 + HUD.font.getLineHeight() / 2);
+                HUD.font.setColor(Color.WHITE);
             }
 
             i++;

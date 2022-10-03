@@ -22,7 +22,7 @@ public abstract class RangedWeapon extends Weapon {
     public abstract long lifespan();
 
     public void use(Level parent, int tx, int ty) {
-        System.out.println(lastUse);
+     //   System.out.println(lastUse);
         if (System.currentTimeMillis() - lastUse > fireRate() & usage > 0.3) {
             parent.spawnEntity(new Projectile(this.owner, this, tx, ty));
             lastUse = System.currentTimeMillis();

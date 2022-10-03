@@ -14,11 +14,10 @@ public class Projectile extends Entity {
     long start;
 
 
+    int tx, ty;
 
-
-    int tx,ty;
     public Projectile(Entity owner, RangedWeapon toFire, int tx, int ty) {
-        super(toFire.projectileTexture, owner.getX(), owner.getY());
+        super(toFire.projectileTexture, owner.getX() + owner.getW() / 2, owner.getY() + owner.getH() / 2);
         this.tx = tx;
         this.ty = ty;
         this.owner = owner;
@@ -50,7 +49,7 @@ public class Projectile extends Entity {
         if (System.currentTimeMillis() - start > 2000) {
             parent.removeEntity(this);
         }
-        angle = (float) -(Math.atan2(this.x - tx, this.y -ty) * 180 / Math.PI) - 90;
+        angle = (float) -(Math.atan2(this.x - tx, this.y - ty) * 180 / Math.PI) - 90;
 
     }
 
@@ -69,6 +68,6 @@ public class Projectile extends Entity {
     @Override
     public void onRemove(Level parent) {
         super.onRemove(parent);
-        this.toFire.onRemove(this,parent);
+        this.toFire.onRemove(this, parent);
     }
 }

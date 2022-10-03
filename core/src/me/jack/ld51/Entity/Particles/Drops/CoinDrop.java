@@ -9,7 +9,7 @@ import me.jack.ld51.level.Level;
 
 public class CoinDrop extends DropParticle{
 
-    public static final Texture t = new Texture("coin.png");
+    public static final Texture t = new Texture("coindrop.png");
     @Override
     public void apply(Level parent, Mob pickedUpBy) {
         pickedUpBy.addCoins(1);
@@ -23,7 +23,7 @@ public class CoinDrop extends DropParticle{
     @Override
     public void renderTextures(SpriteBatch batch)
     {
-        batch.draw(t, getX(), getY(),16,16);
+        batch.draw(t, getX(), getY());
     }
     @Override
     public void renderShapes(ShapeRenderer renderer) {}

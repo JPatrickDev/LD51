@@ -18,11 +18,11 @@ public class Flamethrower extends RangedWeapon {
         icon = TexCache.get("flamethrower.png");
         this.name = "Flamethower";
         this.description = "Throws flames.";
-        this.upgrades = new String[]{"COOLER:1:5:Increased cooling for longer bursts:cooler.png",
-                "SPREAD:1:1:Shoot in a wider arc:arc.png",
-                "NAPALM:1:1:Flames hang around for longer:napalm.png"};
+        this.upgrades = new String[]{"COOLER:7:30:Increased cooling for longer bursts:cooler.png",
+                "SPREAD:10:30:Shoot in a wider arc:arc.png",
+                "NAPALM:12:50:Flames hang around for longer:napalm.png"};
         unlockedAt = 5;
-        regenRate=0.01f;
+        regenRate=0.05f;
         usageRate = 0.1f;
     }
 

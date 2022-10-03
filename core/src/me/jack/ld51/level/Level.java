@@ -43,9 +43,10 @@ public class Level {
     public ArrayList<Entity> entities = new ArrayList<Entity>();
 
 
-    private int w, h;
+    public int w;
+    public int h;
 
-    Tile[][] map;
+    public Tile[][] map;
 
     Player player;
 
@@ -59,8 +60,15 @@ public class Level {
     public AStarGridFinder<GridCell> finder = new AStarGridFinder(GridCell.class);
 
     public Level() {
-        w = 20;
-        h = 15;
+        this(20, 15);
+        player = new Player(300, 300);
+        entities.add(player);
+
+    }
+
+    public Level(int w, int h) {
+        this.w = w;
+        this.h = h;
         map = new Tile[w][h];
         for (int x = 0; x != w; x++) {
             for (int y = 0; y != h; y++) {
@@ -70,18 +78,16 @@ public class Level {
                     map[x][y] = new FloorTile(x, y);
                 }
 
-                if ((x - 2 == 0 && y - 2 == 0) || (x + 3 == w && y + 3 == h)) {
+                if ((x + 3 == w && y + 3 == h) || (x + 3 == w && y - 2 == 0)) {
                     map[x][y] = new RightStairTile(x, y);
                     stairs.add((StairTile) map[x][y]);
                 }
-                if ((x - 2 == 0 && y + 3 == h) || (x + 3 == w && y - 2 == 0)) {
+                if ((x - 2 == 0 && y - 2 == 0) || (x - 2 == 0 && y + 3 == h)) {
                     map[x][y] = new LeftStairTile(x, y);
                     stairs.add((StairTile) map[x][y]);
                 }
             }
         }
-        player = new Player(300, 300);
-        entities.add(player);
         pathfindingGrid = new NavigationGrid<GridCell>(map);
         //  newRoundSpawnMobs();
     }
@@ -125,7 +131,7 @@ public class Level {
             val += LD51Game.rand(4) - 2;
             if (val <= 0)
                 val = 1;
-            System.out.println("Spawning " + val);
+          //  System.out.println("Spawning " + val);
 
             for (int i = 0; i <= val; i++) {
                 t.toSpawn.add(new GruntEnemy(t.tX * Tile.TILE_SIZE, t.tY * Tile.TILE_SIZE));
@@ -175,10 +181,8 @@ public class Level {
     }
 
     public void update() {
-
-        System.out.println("Level updating");
         if (currentRound == 0) {
-            newRoundChangeWalls();
+            newRoundStart();
             currentRound = 1;
         }
         if (System.currentTimeMillis() - roundTimer > 10000) {
@@ -195,18 +199,23 @@ public class Level {
         for (Entity e : toRemove) {
             e.onRemove(this);
             entities.remove(e);
-            if (e instanceof Mob) { //TODO should be moved inside Mob and Grunt
+            if (e instanceof Mob) {
                 for (int i = 0; i != 50; i++) {
                     if (LD51Game.randBool())
                         toSpawn.add(new BloodParticle(e.getX(), e.getY(), 4, 4));
                     else
                         toSpawn.add(new BloodParticle(e.getX(), e.getY(), 2, 2));
                 }
-                if (LD51Game.rand(5) == 0) {
-                    toSpawn.add(new HealthDrop(e.getX(), e.getY()));
-                }
-                if (LD51Game.rand(5) == 0) {
-                    toSpawn.add(new CoinDrop(e.getX(), e.getY()));
+                if (player != null) {
+                    int m = LD51Game.rand(3) + 1;
+                    for (int i = 0; i != m; i++) {
+                        if (LD51Game.rand(8) == 0) {
+                            toSpawn.add(new HealthDrop(e.getX() + (LD51Game.rand(32) - 16), e.getY() + (LD51Game.rand(32) - 16)));
+                        }
+                        if (LD51Game.rand(3) == 0) {
+                            toSpawn.add(new CoinDrop(e.getX(), e.getY()));
+                        }
+                    }
                 }
             }
         }
@@ -254,6 +263,14 @@ public class Level {
 
             }
         }
+        Rectangle r3 = new Rectangle((int) (target.getX() + target.getdX()), (int) (target.getY() + target.getdY()), target.getW(), target.getH());
+        for (Rectangle wall : walls.keySet()) {
+            if (wall.intersects(r3)) {
+                target.setdX(0);
+                target.setdY(0);
+
+            }
+        }
 
         for (Entity e : entities) {
             if (e == target || e instanceof Projectile || e instanceof DecorativeParticle)
@@ -264,7 +281,7 @@ public class Level {
             }
             if (r2.intersects(r)) {
                 if (e instanceof Mob && target instanceof Projectile && ((Projectile) target).getOwner() != e) {
-                    if (!(((Projectile) target).getOwner() instanceof BaseEnemy && e instanceof BaseEnemy)) {
+                    if (!(((Projectile) target).getOwner() instanceof BaseEnemy && e instanceof BaseEnemy) || player == null) {
                         ((Mob) e).takeDamage(((Projectile) target).toFire.damage());
                         removeEntity(target);
                     }
@@ -281,10 +298,17 @@ public class Level {
                     ((DropParticle) e).apply(this, (Mob) target);
                     removeEntity(e);
                 }
+
+                if (e instanceof Player && target instanceof DropParticle) {
+                    ((DropParticle) target).apply(this, (Mob) e);
+                    removeEntity(target);
+                }
                 if (target instanceof BaseEnemy && e instanceof WeaponParticle) {
                     ((Mob) target).takeDamage(((WeaponParticle) e).getDamage());
                     removeEntity(e);
                 }
+
+
                 if (target instanceof WeaponParticle) {
                     if (e instanceof Mob) {
                         if (((WeaponParticle) target).owner != e) {
@@ -352,7 +376,7 @@ public class Level {
         return (int) Point2D.distance(e.getX(), e.getY(), t.getX() * Tile.TILE_SIZE, t.getY() * Tile.TILE_SIZE);
     }
 
-    public Mob findMobInRange(Player player, float range) {
+    public Mob findMobInRange(Mob player, float range) {
         List<Mob> choices = new ArrayList<Mob>();
         for (Entity e : entities) {
             if (!(e instanceof Mob))

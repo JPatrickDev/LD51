@@ -20,8 +20,8 @@ public class SeekerRocket extends RangedWeapon{
         icon  = TexCache.get("seekerrocket.png");
         this.name = "Seeking Missile";
         this.description = "Locks on to a nearby target.";
-        this.upgrades = new String[]{"DAMAGE:1:1:Increased blast radius:radius.png",
-                "FIRERATE:1:1:Increased rate of fire:rapidfire.png"};
+        this.upgrades = new String[]{"DAMAGE:12:50:Increased blast radius:radius.png",
+                "FIRERATE:15:75:Increased rate of fire:rapidfire.png"};
         unlockedAt = 10;
         regenRate = 0.02f;
         usageRate = 0.4f;
@@ -30,7 +30,7 @@ public class SeekerRocket extends RangedWeapon{
     @Override
     public void use(Level parent, Mob target) {
 
-        System.out.println(lastUse);
+     //   System.out.println(lastUse);
         if (System.currentTimeMillis() - lastUse > fireRate() && usage > 0.2) {
             parent.spawnEntity(new SeekingProjectile(this.owner, this,target));
             lastUse = System.currentTimeMillis();

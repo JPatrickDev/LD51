@@ -17,19 +17,23 @@ import me.jack.ld51.LD51Game;
 import me.jack.ld51.Screen.InGameScreen;
 import me.jack.ld51.level.Level;
 
-public class TutorialDialog extends Dialog{
+public class TutorialDialog extends Dialog {
 
-    Texture t = new Texture("tutorial.png");
+    static Texture t = new Texture("tutorial.png");
     InGameScreen igs;
+    Level parent;
+
     public TutorialDialog(Level parent, InGameScreen igs) {
         this.igs = igs;
+        this.parent = parent;
     }
 
     public void renderTextures(SpriteBatch batch) {
-        batch.draw(t,0,-90);
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+        batch.draw(t, 0, -90);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             igs.dialog = null;
-
+            parent.roundTimer += (System.currentTimeMillis() - parent.pausedAt);
+            parent.pausedAt = -1;
         }
     }
 

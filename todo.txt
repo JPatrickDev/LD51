@@ -41,19 +41,19 @@ Second enemy that has ranged attack/
 Improved AI
     - Pathfinding/
 
-- Balance cost/unlocks
+- Balance cost/unlocks/
 
-Tutorial
+Tutorial/
 
 Drops move towards the player/
 
-Wall clipping
+Wall clipping/
 
 Improved HUD/
 
 Finish main menu/
 
-Finish game over screen
+Finish game over screen/
     - Display round reached/
 
 Point projectiles in direction of travel/
@@ -62,7 +62,7 @@ Point projectiles in direction of travel/
 
 
 Particles
-  - Bouncing off wall
+  - Bouncing off wall/
   - Death/
 
 
