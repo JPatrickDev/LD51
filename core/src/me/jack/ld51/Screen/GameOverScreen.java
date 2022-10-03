@@ -27,22 +27,23 @@ public class GameOverScreen extends Screen {
     public static Rectangle playAgain = new Rectangle(185,225 + 90 - 100,277,69);
     public static Rectangle mainMenu = new Rectangle(183,225 - 100,282,70);
     public static Rectangle quit = new Rectangle(188,225-90 - 100,277,69);
-
+    Level level;
     public GameOverScreen(SpriteBatch batch, ShapeRenderer renderer, Level parent) {
         this.batch = batch;
         this.renderer = renderer;
-        renderer = new ShapeRenderer();
+        this.level = parent;
     }
 
     public void render() {
 
         batch.begin();
-        HUD.font.setColor(Color.RED);
+        HUD.font.setColor(Color.WHITE);
         //   HUD.font.draw(batch,"Game Over :(", 300,300);
         batch.draw(background, 0, -90);
         batch.draw(play,playAgain.x,playAgain.y);
         batch.draw(menu,mainMenu.x,mainMenu.y);
         batch.draw(quitButton,quit.x,quit.y);
+        HUD.font.draw(batch,"You survived " + level.currentRound + " rounds.",270,390);
         batch.end();
 
         if(Gdx.input.isButtonJustPressed(0)){

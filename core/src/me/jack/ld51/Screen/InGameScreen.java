@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import me.jack.ld51.level.Level;
+import me.jack.ld51.ui.Dialog;
 import me.jack.ld51.ui.HUD;
 import me.jack.ld51.ui.UpgradesDialog;
 
@@ -18,7 +19,7 @@ public class InGameScreen extends Screen{
     Level level;
     HUD hud;
 
-    public UpgradesDialog dialog;
+    public Dialog dialog;
 
 
     public InGameScreen(SpriteBatch batch, ShapeRenderer renderer){

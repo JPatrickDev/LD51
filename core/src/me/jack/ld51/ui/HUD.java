@@ -43,6 +43,12 @@ public class HUD {
                     level.pausedAt = System.currentTimeMillis();
                 }
             }
+            if (new Rectangle(Gdx.graphics.getWidth() - upgradesButton.getWidth() - 10, (int) (10 + upgradesButton.getHeight() - wheelRadius * 2 + 10), 128, 32).contains(InGameScreen.getMX(), InGameScreen.getMY())) {
+                if (igs.dialog == null) {
+                    igs.dialog = new TutorialDialog(level, igs);
+                    level.pausedAt = System.currentTimeMillis();
+                }
+            }
         }
     }
 

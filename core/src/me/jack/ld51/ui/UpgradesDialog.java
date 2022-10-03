@@ -15,7 +15,7 @@ import me.jack.ld51.Entity.Projectiles.Weapons.Weapon;
 import me.jack.ld51.Screen.InGameScreen;
 import me.jack.ld51.level.Level;
 
-public class UpgradesDialog {
+public class UpgradesDialog extends Dialog{
     Level parent;
 
     public static Texture coin = new Texture("coin.png");
@@ -60,10 +60,11 @@ public class UpgradesDialog {
             }
             HashMap<Rectangle, Object[]> copy = new HashMap<>(currentPurchaseButtons);
             for (Rectangle r : copy.keySet()) {
-                if (r.contains(InGameScreen.getMX(), InGameScreen.getMY())) {
+                int c = Integer.parseInt((String) currentPurchaseButtons.get(r)[2]);
+                if (r.contains(InGameScreen.getMX(), InGameScreen.getMY()) && parent.getPlayer().canBuy(c)) {
                     ((Weapon) currentPurchaseButtons.get(r)[0]).appliedUpgrades.add((String) currentPurchaseButtons.get(r)[1]);
-                    System.out.println(((Weapon) currentPurchaseButtons.get(r)[0]).appliedUpgrades);
                     currentPurchaseButtons.remove(r);
+                    parent.getPlayer().buy(c);
                 }
             }
         }
@@ -148,7 +149,7 @@ public class UpgradesDialog {
                 } else if (weapon.appliedUpgrades.contains(data[0])) {
 
                 } else {
-                    currentPurchaseButtons.put(new Rectangle(440, y + (i * 70) + 20, purchaseButton.getWidth(), purchaseButton.getHeight()), new Object[]{weapon, data[0]});
+                    currentPurchaseButtons.put(new Rectangle(440, y + (i * 70) + 20, purchaseButton.getWidth(), purchaseButton.getHeight()), new Object[]{weapon, data[0],data[2]});
                     batch.draw(purchaseButton, 480, y + (i * 70) + 20);
                 }
                 i++;

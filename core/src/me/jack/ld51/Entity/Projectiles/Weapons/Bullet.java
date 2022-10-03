@@ -22,7 +22,7 @@ public class Bullet extends RangedWeapon {
                 "DAMAGE:10:200:Deal more damage with bigger bullets:largerbullet.png",
                 "MULTISHOT:15:500:Shoot three bullets at once:tripleshot.png"};
         unlockedAt = 0;
-        usageRate=0.2f;
+        usageRate=0.1f;
         regenRate=0.01f;
     }
 
@@ -33,9 +33,9 @@ public class Bullet extends RangedWeapon {
             return 2000;
         }
         if (appliedUpgrades.contains("FIRERATE")) {
-            return 150;
+            return 100;
         } else {
-            return 250;
+            return 150;
         }
     }
 

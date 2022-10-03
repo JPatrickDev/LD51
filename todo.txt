@@ -49,12 +49,12 @@ Drops move towards the player/
 
 Wall clipping
 
-Improved HUD
+Improved HUD/
 
-Finish main menu
+Finish main menu/
 
 Finish game over screen
-    - Display round reached
+    - Display round reached/
 
 Point projectiles in direction of travel/
 

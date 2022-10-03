@@ -22,12 +22,21 @@ public class Player extends Mob {
     public Weapon[] weaponWheel = new Weapon[4];
 
     public int coins = 500;
+
+    public boolean canBuy(int c) {
+        return c <= coins;
+    }
+
+    public void buy(int c) {
+        coins -= c;
+    }
+
     public Player(int x, int y) {
         super(TexCache.get("player.png"), x, y);
 
 
-        weaponWheel[0] = new Bullet(this,100);
-        weaponWheel[1] = new Grenade(this,250);
+        weaponWheel[0] = new Bullet(this, 100);
+        weaponWheel[1] = new Grenade(this, 250);
         weaponWheel[2] = new Flamethrower(this);
         weaponWheel[3] = new SeekerRocket(this);
         currentWeapon = weaponWheel[0];
@@ -37,11 +46,11 @@ public class Player extends Mob {
     @Override
     public void update(Level parent) {
         super.update(parent);
-        angle = (float) -(Math.atan2(this.x - InGameScreen.getMX(), this.y - InGameScreen.getMY()) * 180 / Math.PI-180);
-        for(Weapon w : weaponWheel){
-            if(w != null){
+        angle = (float) -(Math.atan2(this.x - InGameScreen.getMX(), this.y - InGameScreen.getMY()) * 180 / Math.PI - 180);
+        for (Weapon w : weaponWheel) {
+            if (w != null) {
                 w.usage += w.regenRate;
-                if(w.usage > 1f){
+                if (w.usage > 1f) {
                     w.usage = 1f;
                 }
             }
@@ -60,7 +69,7 @@ public class Player extends Mob {
 
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
             if (this.currentWeapon instanceof RangedWeapon && !(this.currentWeapon instanceof SeekerRocket)) {
-                ((RangedWeapon) this.currentWeapon).use(parent, InGameScreen.getMX(),InGameScreen.getMY());
+                ((RangedWeapon) this.currentWeapon).use(parent, InGameScreen.getMX(), InGameScreen.getMY());
             } else {
                 Mob m = parent.findMobInRange(this, this.currentWeapon.range());
                 if (m != null)
@@ -70,20 +79,20 @@ public class Player extends Mob {
 
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.NUM_1)){
-            if(weaponWheel[0] != null && weaponWheel[0].unlockedAt <= parent.currentRound)
-               currentWeapon = weaponWheel[0];
+        if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
+            if (weaponWheel[0] != null && weaponWheel[0].unlockedAt <= parent.currentRound)
+                currentWeapon = weaponWheel[0];
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.NUM_2)){
-            if(weaponWheel[1] != null && weaponWheel[1].unlockedAt <= parent.currentRound)
-             currentWeapon = weaponWheel[1];
+        if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
+            if (weaponWheel[1] != null && weaponWheel[1].unlockedAt <= parent.currentRound)
+                currentWeapon = weaponWheel[1];
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.NUM_3)){
-            if(weaponWheel[2] != null && weaponWheel[2].unlockedAt <= parent.currentRound)
-             currentWeapon = weaponWheel[2];
+        if (Gdx.input.isKeyPressed(Input.Keys.NUM_3)) {
+            if (weaponWheel[2] != null && weaponWheel[2].unlockedAt <= parent.currentRound)
+                currentWeapon = weaponWheel[2];
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.NUM_4)){
-            if(weaponWheel[3] != null && weaponWheel[3].unlockedAt <= parent.currentRound)
+        if (Gdx.input.isKeyPressed(Input.Keys.NUM_4)) {
+            if (weaponWheel[3] != null && weaponWheel[3].unlockedAt <= parent.currentRound)
                 currentWeapon = weaponWheel[3];
         }
 

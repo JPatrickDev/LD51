@@ -30,7 +30,7 @@ public class Flamethrower extends RangedWeapon {
     public void use(Level parent, int tx, int ty) {
 
         if (appliedUpgrades.contains("COOLER")) {
-            this.usageRate = 0.1f;
+            this.usageRate = 0.05f;
         }
         if (usage > 0.1) {
             int k = 5;
