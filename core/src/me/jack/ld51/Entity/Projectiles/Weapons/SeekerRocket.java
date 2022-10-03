@@ -23,15 +23,18 @@ public class SeekerRocket extends RangedWeapon{
         this.upgrades = new String[]{"DAMAGE:1:1:Increased blast radius:radius.png",
                 "FIRERATE:1:1:Increased rate of fire:rapidfire.png"};
         unlockedAt = 1;
+        regenRate = 0.02f;
+        usageRate = 0.4f;
     }
 
     @Override
     public void use(Level parent, Mob target) {
 
         System.out.println(lastUse);
-        if (System.currentTimeMillis() - lastUse > fireRate()) {
+        if (System.currentTimeMillis() - lastUse > fireRate() && usage > 0.2) {
             parent.spawnEntity(new SeekingProjectile(this.owner, this,target));
             lastUse = System.currentTimeMillis();
+            usage -= usageRate;
         }
     }
 

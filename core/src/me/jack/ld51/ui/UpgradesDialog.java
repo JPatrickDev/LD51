@@ -148,7 +148,7 @@ public class UpgradesDialog {
                 } else if (weapon.appliedUpgrades.contains(data[0])) {
 
                 } else {
-                    currentPurchaseButtons.put(new Rectangle(480, y + (i * 70) + 20, purchaseButton.getWidth(), purchaseButton.getHeight()), new Object[]{weapon, data[0]});
+                    currentPurchaseButtons.put(new Rectangle(440, y + (i * 70) + 20, purchaseButton.getWidth(), purchaseButton.getHeight()), new Object[]{weapon, data[0]});
                     batch.draw(purchaseButton, 480, y + (i * 70) + 20);
                 }
                 i++;
@@ -173,7 +173,7 @@ public class UpgradesDialog {
             } else if (weapon.appliedUpgrades.contains(data[0])) {
 
             } else {
-                batch.draw(purchaseButton, 480, y + (i * 70) + 20);
+                batch.draw(purchaseButton, 440, y + (i * 70) + 20);
             }
 
             i++;

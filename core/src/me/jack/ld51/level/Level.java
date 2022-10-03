@@ -121,9 +121,15 @@ public class Level {
 
     public void newRoundSpawnMobs() {
         for (StairTile t : stairs) {
-            for (int i = 0; i <= LD51Game.rand(5) + 1; i++) {
+            int val = (int) Math.floor(Math.log(Math.pow(currentRound, 20))) / 5;
+            val += LD51Game.rand(4) - 2;
+            if (val <= 0)
+                val = 1;
+            System.out.println("Spawning " + val);
+
+            for (int i = 0; i <= val; i++) {
                 t.toSpawn.add(new GruntEnemy(t.tX * Tile.TILE_SIZE, t.tY * Tile.TILE_SIZE));
-                if (LD51Game.rand(5) == 0) {
+                if (LD51Game.rand(5) == 0 && currentRound > 4) {
                     t.toSpawn.add(new RangedEnemy(t.tX * Tile.TILE_SIZE, t.tY * Tile.TILE_SIZE));
                 }
             }

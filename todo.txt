@@ -56,7 +56,7 @@ Finish main menu
 Finish game over screen
     - Display round reached
 
-Point projectiles in direction of travel
+Point projectiles in direction of travel/
 
 
 

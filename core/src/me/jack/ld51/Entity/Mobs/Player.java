@@ -27,7 +27,7 @@ public class Player extends Mob {
 
 
         weaponWheel[0] = new Bullet(this,100);
-        weaponWheel[1] = new Grenade(this,1000);
+        weaponWheel[1] = new Grenade(this,250);
         weaponWheel[2] = new Flamethrower(this);
         weaponWheel[3] = new SeekerRocket(this);
         currentWeapon = weaponWheel[0];

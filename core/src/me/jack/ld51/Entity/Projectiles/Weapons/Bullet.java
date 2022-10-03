@@ -22,6 +22,8 @@ public class Bullet extends RangedWeapon {
                 "DAMAGE:10:200:Deal more damage with bigger bullets:largerbullet.png",
                 "MULTISHOT:15:500:Shoot three bullets at once:tripleshot.png"};
         unlockedAt = 0;
+        usageRate=0.2f;
+        regenRate=0.01f;
     }
 
 
@@ -41,11 +43,12 @@ public class Bullet extends RangedWeapon {
     public void use(Level parent, int tx, int ty) {
         if (appliedUpgrades.contains("MULTISHOT")) {
             System.out.println(lastUse);
-            if (System.currentTimeMillis() - lastUse > fireRate()) {
+            if (System.currentTimeMillis() - lastUse > fireRate() & usage > 0.2) {
                 parent.spawnEntity(new Projectile(this.owner, this, tx + 15, ty));
                 parent.spawnEntity(new Projectile(this.owner, this, tx, ty));
                 parent.spawnEntity(new Projectile(this.owner, this, tx - 15, ty));
                 lastUse = System.currentTimeMillis();
+                usage -= usageRate;
             }
         } else {
             super.use(parent, tx, ty);

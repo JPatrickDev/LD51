@@ -22,7 +22,8 @@ public class Flamethrower extends RangedWeapon {
                 "SPREAD:1:1:Shoot in a wider arc:arc.png",
                 "NAPALM:1:1:Flames hang around for longer:napalm.png"};
         unlockedAt = 1;
-        usageRate = 0.25f;
+        regenRate=0.01f;
+        usageRate = 0.1f;
     }
 
     @Override
@@ -31,7 +32,7 @@ public class Flamethrower extends RangedWeapon {
         if (appliedUpgrades.contains("COOLER")) {
             this.usageRate = 0.1f;
         }
-        if (usage > 0) {
+        if (usage > 0.1) {
             int k = 5;
             if(appliedUpgrades.contains("SPREAD")){
                 k = 10;
